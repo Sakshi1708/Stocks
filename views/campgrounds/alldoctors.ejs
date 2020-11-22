@@ -1,0 +1,27 @@
+<%- include("../partials/header") %>
+
+<div class="container mt-5">
+    <div class="container jumbotron">    
+<h1>TU NAAkS</h1>
+<p>Doctors available in your area, can choose to make an appointment</p>
+</div>    
+<div class="row text-center" id="Appointments">
+    <% doc_available.forEach(function(doc){ %>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="img-thumbnail mb-1">
+                   <div>
+                    <h4 class="text-break">DR. <%= doc.fname  %> <%= doc.lname  %></h4>
+                    <p class="text-break">Experience: <%= doc.exp %> years</p>
+                    <p class="text-break">quallifications: <%= doc.quallifications %></p>
+                    <a href="/campgrounds/new/<%= doc._id%>"  class="btn btn-sm btn-primary">New Appointment</a>
+                    <a href="/campgrounds/view/<%= doc._id%>"  class="btn btn-sm btn-info">All Appointments</a>
+                   </div>
+                </div>
+        </div>
+     <% }) %> 
+</div>
+ 
+</div>
+<%- include("../partials/footer") %>
+
+

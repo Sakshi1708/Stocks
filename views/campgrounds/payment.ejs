@@ -1,0 +1,76 @@
+
+<%- include ("../partials/header") %>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<title>Paytm Secure Online Payment Gateway</title>
+	</head>
+	<body>
+		<table align='center'>
+			<tr>
+				<td><STRONG>Transaction is being processed,</STRONG></td>
+			</tr>
+			<tr>
+				<td><font color='blue'>Please wait ...</font></td>
+			</tr>
+			<tr>
+				<td>(Please do not press 'Refresh' or 'Back' button)</td>
+			</tr>
+		</table>
+<div class="container-jumbotron mt-5">
+	<h4 class="text-center">Your receipt is:</h4>
+	<table border="1PX" align="center">
+		<tr>
+			<td>CURRENCY</td>
+			<td>'<%= details.CURRENCY %>'</td>
+		</tr>
+		<tr>
+			<td>GATEWAYNAME</td>
+			<td>'<%= details.GATEWAYNAME %>'</td>
+		</tr>
+		<tr>
+			<td>RESPONSE MESSAGE</td>
+			<td>'<%= details.RESPMSG %>'</td>
+		</tr>
+		<tr>
+			<td>BANKNAME</td>
+			<td>'<%= details.BANKNAME %>'</td>
+		</tr>
+		<tr>
+			<td>MERCHANT ID</td>
+			<td>'<%= details.MID %>'</td>
+		</tr>
+		<tr>
+			<td>RESPONSE CODE</td>
+			<td>'<%= details.RESPCODE %>'</td>
+		</tr>
+		<tr>
+			<td>Transaction ID</td>
+			<td>'<%= details.TXNID %>'</td>
+		</tr>
+		<tr>
+			<td>Transaction AMOUNT</td>
+			<td>'<%= details.TXNAMOUNT %>'</td>
+		</tr>
+		<tr>
+			<td>ORDER ID</td>
+			<td>'<%= details.ORDERID %>'</td>
+		</tr>
+		<tr>
+			<td>STATUS</td>
+			<td>'<%= details.STATUS %>'</td>
+		</tr>
+		<tr>
+			<td>BANK Transaction ID</td>
+			<td>'<%= details.BANKTXNID %>'</td>
+		</tr>
+		<tr>
+			<td>Transaction TIME</td>
+			<td>'<%= details.TXNDATE %>'</td>
+		</tr>
+	</table>
+	<div class="text-center mt-2 mb-5">
+		<input class="btn btn-success btn-xs" value="Print this page" onClick="window.print()">
+		<a class="btn btn-warning btn-xs" href="/campgrounds/final/<%= fcampground._id %>">Go to the main page</a>
+	</div>
+</div>	

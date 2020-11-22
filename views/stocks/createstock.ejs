@@ -1,0 +1,121 @@
+<%- include("../partials/header") %>
+
+<div class = "container">
+    <form action="/CreateStock" method="POST">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+            <input type="text" class="form-control" placeholder="Stock name">
+            </div>
+            <div class="form-group col-md-4">
+            <label for="Products">Product-Type</label>
+            <input list="Products" name="Products" placeholder="Product-Type">
+            <datalist id="Products">
+                <option value="Cash">
+                <option value="Future">
+                <option value="Call">
+                <option value="Put">
+            </datalist>
+            </div>
+
+            <div class="form-group col-md-2">
+                <label for="Exchange">Exchange</label>
+                <input list="Exchange" name="Exchange" placeholder="Exchange">
+                <datalist id="Exchange">
+                    <option value="NSE">
+                    <option value="BSE">
+                    <option value="MCX">
+                </datalist>
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <input type="text" class="form-control" placeholder="Buying Price">
+            </div>
+            <div class="form-group col-md-4">
+                <input type="text" class="form-control" placeholder="Target">  
+            </div>
+            <div class="form-group col-md-4">
+                <input type="text" class="form-control" placeholder="Stop Loss">
+                </div>           
+
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <input type="date" class="form-control" placeholder="StartDate">
+            </div>
+            <div class="form-group col-md-4">
+                <input type="date" class="form-control" placeholder="EndDate">
+            </div>
+            <div class="form-group col-md-4">
+                
+                    <label for="Free-Trial">Do you want to include in Free Trial</label>
+                    <input list="Free-Trial" name="Free-Trial" placeholder="Free Trial">
+                    <datalist id="Free-Trial">
+                        <option value="Yes">
+                        <option value="No">
+                    </datalist>                   
+            </div>
+        </div>
+
+        
+        <div class="form-row">
+            <div class="form-group">
+                <textarea type="text" class="form-control" placeholder="Comments">Comments</textarea>
+            </div>
+        </div>
+    
+        <button type="submit" class="btn btn-primary">ADD TIP</button>
+    </form>
+</div>
+
+  <%- include("../partials/footer") %>
+
+
+
+<!-- const stock = require('../models/stock');
+
+var data = new stock[{
+        StockName : Hindustan Unilever,
+        BuyPrice : Rs.1200,
+        Target : Rs. 1350,
+        StopLoss : Rs.1100,
+        id :1,
+        PostDate:{
+            startdate: ,
+            enddate : ,
+        }
+        product : ,
+        exchange : ,
+        comment : ,
+    }
+    {
+        StockName : Hindustan Unilever,
+        BuyPrice : Rs.1200,
+        Target : Rs. 1350,
+        StopLoss : Rs.1100,
+        id :1,
+        PostDate:{
+            startdate: ,
+            enddate : ,
+        }
+        product : ,
+        exchange : ,
+        comment : , 
+    }
+    {
+        StockName : Hindustan Unilever,
+        BuyPrice : Rs.1200,
+        Target : Rs. 1350,
+        StopLoss : Rs.1100,
+        id :1,
+        PostDate:{
+            startdate: ,
+            enddate : ,
+        }
+        product : ,
+        exchange : ,
+        comment : ,
+    }
+    ]
+} -->

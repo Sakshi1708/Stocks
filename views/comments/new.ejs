@@ -1,0 +1,13 @@
+<%- include ("../partials/header") %>
+
+<div class="container mt-5">
+    <div class="container jumbotron">
+        <h1>Adding a new comment for <%= campground.name %></h1>
+    </div>
+<form action="/campgrounds/<%= campground._id %>/comments" method="POST">
+    <input class="form-control mt-1" type="text" name="comment[text]" placeholder="Enter_text">
+    <button class="btn btn-sm btn-success mt-3">Submit</button>
+</form>
+<a href="/campgrounds/<%= campground._id %>" class="btn btn-sm btn-info">Go back</a>
+</div>
+<%- include("../partials/footer") %>

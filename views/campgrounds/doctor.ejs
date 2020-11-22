@@ -1,0 +1,118 @@
+<%- include ("../partials/header") %>
+<div class="container jumbotron pt-5">
+    <h3 >Collaborate with TU NAAkS</h3>
+    <p>Fill the details given below (Only for Doctors)</p>
+</div>
+<div class="container">
+    <form action="/campgrounds/collab" method="POST" enctype="multipart/form-data">
+        <div class="form-row">
+            <div class="col-md-4 form-group">
+              <input type="text" name="doctor[fname]" class="form-control" id="name" placeholder="Your First_Name" data-rule="minlen:4"  required>
+              <div class="validate"></div>
+            </div>
+            <div class="col-md-4 form-group">
+              <input type="text" class="form-control" name="doctor[lname]" id="email" placeholder="Your Last_Name" data-rule="email" required>
+              <div class="validate"></div>
+            </div>
+            <div class="col-md-4 form-group">
+              <input type="tel" class="form-control" name="doctor[phone]" id="phone" placeholder="Your Phone Number" data-rule="minlen:10" required>
+              <div class="validate"></div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="col-md-4 form-group">
+              <input type="number" name="doctor[exp]" class="form-control" id="name" placeholder="Your Experience (in Years)" data-rule="minlen:4" required>
+              <div class="validate"></div>
+            </div>
+            <div class="col-md-4 form-group">
+              <input type="email" class="form-control" name="doctor[email]" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email" required>
+              <div class="validate"></div>
+            </div>
+            <div class="col-md-4 form-group">
+              <input type="text" class="form-control" name="doctor[quallifications]" id="phone" placeholder="Your Quallifications" data-rule="minlen:4" data-msg="Please enter at least 4 chars" required>
+              <div class="validate"></div>
+            </div>
+          </div>
+          <p>Upload your Aadhar card and your License, can select multiple files at once:</p>
+          <!-- <input class="form-group" type="file" name="myfiles[aadhar]" accept=".pdf"  required> -->
+          <!-- <p>Upload your Medical License (.pdf format):</p> -->
+          <input class=" form-group" type="file" name="myfiles" accept=".pdf"  multiple required>
+          <p></p>
+        <select  id="state" class="form-group input-lg" name="doctor[state]" onchange="random()">
+            <option value="">Your state</option>
+        </select>
+        <select id="city" class="form-group input-lg" name="doctor[city]">
+            <option value="">Your city</option>
+        </select>
+    <button class="btn btn-sm btn-info">Submit</button>
+</form>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+        <script>
+                
+            var uniqueArray=[]
+            var A=[]
+            $.ajax({
+                url:'/cities.json',
+                dataType: 'json',
+                type: 'GET',
+                cache: false,
+                success: function(data){
+                
+                    
+                    $(data.State_Cities).each(function(index,value){
+
+                        A.push(value)
+                    });
+
+                    for(i=0;i<A.length;i++)
+                    {
+                        // uniqueArray = Array.from(new Set(A[i].state));
+                        uniqueArray.push(A[i].state)
+                        
+                    }
+                    uniqueArray = Array.from(new Set(uniqueArray));
+                    console.log(uniqueArray)
+                    
+                    for(i=0;i<uniqueArray.length;i++)
+                    {
+                        $('#state').append(`<option name='state'>${uniqueArray[i]}</option>`)
+                    }
+                    
+                }
+            })
+
+
+            function random()
+                    {
+                        array=[]
+                        var a= document.getElementById('state').value;
+                        
+                        for(i=0;i<A.length;i++)
+                        {
+                            if(a == A[i].state)
+                            {
+                                array.push(A[i].name)
+                            }
+                        }
+                    
+                    
+
+                        var string= " ";
+                        for(i=0;i<array.length;i++)
+                        {
+                            string=string+"<option name='city'>"+ array[i]+"</option>";
+                        }
+
+                        string="<select name= 'doc'>"+string+"</select>";
+                        document.getElementById('city').innerHTML=string;
+                    }
+
+        </script>
+    
+        
+    
+</div>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,61 @@
+<%- include ("../partials/header") %>
+<div class="container jumbotron ">
+    <div class="text-center">
+        <h1>TU NAAkS</h1>
+        <button class="btn btn-sm btn-info" onclick="getLocation()">Get location</button>
+        <div id="output"></div>
+        <div id="hide" class="d-none"> 
+            <h5>Proceed With Location</h5>
+            <a class="btn btn-sm btn-success" onclick="getData()" >Proceed</a>
+            <h5>else</h5>
+            <a class="btn btn-sm btn-warning" href="/info">Go back</a>
+        </div>
+    </div>
+</div>        
+        
+        <script>
+            var x=document.getElementById('output');
+            function getData(){
+                // console.log(x.textContent);
+               var city=($("#city").text());
+               var state=($("#state").text());
+                console.log(city);
+                console.log(state);
+                window.location.href = "/api/"+ city + "/" +state;
+            }    
+            function getLocation(){
+                $("div#hide").toggleClass("d-none");
+                if(navigator.geolocation){
+                    navigator.geolocation.getCurrentPosition(showPosition);
+                } else {
+                    x.innerHTML="Browser unable to Support";
+                }
+            }
+
+            function showPosition(position){
+                // x.innerHTML = "latitude = " + position.coords.latitude;
+                // x.innerHTML += "<br/>"
+                // x.innerHTML += "Longitude = " + position.coords.longitude;
+
+                var locAPI = "https://api.opencagedata.com/geocode/v1/json?q="+ position.coords.latitude + "," + position.coords.longitude +"&key=10520dff142a4e92b4a9948f9ebb2422";
+                
+                // var locAPI = "https://maps.googleapis.com/maps/api/geocode/json?latlng=" + position.coords.latitude + "," + position.coords.longitude + "&sensor=true&key=AIzaSyAbHZK2S_1kGrDio5SQSvBJp1OZtK13P3I";
+                // x.innerHTML = locAPI;
+
+                $.get({
+                    url:locAPI,
+                    success: function(data){
+                        console.log(data);
+                        if(data.results[0].components.city && data.results[0].components.city_district){
+                        x.innerHTML = "<br/>District : <span id='city'>" + data.results[0].components.city + "</span> , State : <span id='state'>" + data.results[0].components.city_district+"</span>";
+                        
+                        } else {
+                        x.innerHTML = "District : <span id='city'>" + data.results[0].components.state_district + "</span> , State : <span id='state'>" + data.results[0].components.state +"</span>";
+                        
+                        }
+                }
+            })
+        }
+        </script>
+    <%- include("../partials/footer") %>
+</div>

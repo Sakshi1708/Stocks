@@ -1,0 +1,54 @@
+<%- include("../partials/header") %>
+<!-- <div class="loader" id="trial"></div>
+<style type="text/css">
+.loader {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('https://i.pinimg.com/originals/eb/94/d5/eb94d5dc9caf9fe7623fe9215b9dcade.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: 1;
+}
+</style>
+
+<script type="text/javascript">
+    $(window).load(function() {
+
+        if(!window.location.hash){
+        $(".loader").fadeOut("slow");
+        // $("#trial").addClass("d-none");
+        window.location = window.location + '#loaded';
+           window.location.reload(); 
+
+        }
+        else{
+            $("#trial").addClass("d-none");
+        };
+    });
+    </script> -->
+  
+<div class="container mt-5">
+    <div class="container jumbotron">    
+<h1>WELCOME TO NAAkS</h1>
+<p>Appointments for a DR. <%= doc.fname %> <%= doc.lname %> </p>
+<a href="/campgrounds/new/<%= doc._id %>"  class="btn btn-large btn-primary">Make an Appointment</a>
+</div>
+
+<div class="row text-center" id="Appointments">
+    <% campgrounds.forEach(function(campground){ %>
+        <div class="col-sm-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="img-thumbnail mb-1">
+                   <div>
+                    <h4 class="text-break"><%= campground.name %></h4>
+                    <h4 class="text-break"><%= campground.day %></h4>
+                    <h4 class="text-break"><%= campground.slot %></h4>
+                    <a href="/campgrounds/<%= campground._id %>">More Info</a>
+                   </div>
+                </div>
+        </div>
+     <% }) %> 
+</div>
+    <%- include("../partials/footer") %>
+</div>

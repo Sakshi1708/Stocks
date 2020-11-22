@@ -1,0 +1,99 @@
+<%- include ("../partials/header") %>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<div class="container">
+            <div class="row">
+
+<div class="container jumbotron ">
+    <div class="text-center">
+        <h1>Welcome to NAAkS</h1>
+        <form action="/info" method="POST">
+            <select  id="state" class="form-group input-lg mt-5" name="state" onchange="random()">
+                <option value="">Select state</option>
+            </select>
+        
+            
+                <select id="city" class="form-group input-lg" name="city">
+                <option value="">Select city</option>
+            </select>
+            
+            <button class="btn btn-sm btn-info">Submit</button>
+        </form>
+        <p>Or</p>
+        <a class="btn btn-sm btn-success" href="/api"><i class="fa fa-map-marker"></i> Location</a>
+    </div>
+</div>
+
+            </div>
+        </div>
+
+
+
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+        <script>
+                
+            var uniqueArray=[]
+            var A=[]
+            $.ajax({
+                url:'/cities.json',
+                dataType: 'json',
+                type: 'GET',
+                cache: false,
+                success: function(data){
+                
+                    
+                    $(data.State_Cities).each(function(index,value){
+
+                        A.push(value)
+                    });
+
+                    for(i=0;i<A.length;i++)
+                    {
+                        // uniqueArray = Array.from(new Set(A[i].state));
+                        uniqueArray.push(A[i].state)
+                        
+                    }
+                    uniqueArray = Array.from(new Set(uniqueArray));
+                    console.log(uniqueArray)
+                    
+                    for(i=0;i<uniqueArray.length;i++)
+                    {
+                        $('#state').append(`<option name='state'>${uniqueArray[i]}</option>`)
+                    }
+                    
+                }
+            })
+
+
+            function random()
+                    {
+                        array=[]
+                        var a= document.getElementById('state').value;
+                        
+                        for(i=0;i<A.length;i++)
+                        {
+                            if(a == A[i].state)
+                            {
+                                array.push(A[i].name)
+                            }
+                        }
+                    
+                    
+
+                        var string= " ";
+                        for(i=0;i<array.length;i++)
+                        {
+                            string=string+"<option name='city'>"+ array[i]+"</option>";
+                        }
+
+                        string="<select name= 'doc'>"+string+"</select>";
+                        document.getElementById('city').innerHTML=string;
+                    }
+
+        </script>
+  
+</div>
+<%- include("../partials/footer") %>

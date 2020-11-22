@@ -1,0 +1,58 @@
+<%- include ("../partials/header") %>
+<section id="appointment" class="appointment section-bg">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Make an Appointment</h2>
+        <!-- <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p> -->
+      </div>
+
+      <form action="/campgrounds/<%= campground._id %>?_method=PUT" method="post" role="form" class="php-email-form">
+        <div class="form-row">
+          <div class="col-md-4 form-group">
+            <input type="text" name="campground[name]" value="<%= campground.name %>"class="form-control" id="name" placeholder="Your Name" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+            <div class="validate"></div>
+          </div>
+          <div class="col-md-4 form-group">
+            <input type="email" class="form-control" name="campground[email]" value="<%= campground.email %>" id="email" placeholder="Your Email" data-rule="email" data-msg="Please enter a valid email">
+            <div class="validate"></div>
+          </div>
+          <div class="col-md-4 form-group">
+            <input type="tel" class="form-control" name="campground[phone]" value="<%= campground.phone %>" id="phone" placeholder="Your Phone" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+            <div class="validate"></div>
+          </div>
+        </div>
+        
+          <div class="form-group" style="width:100% ;">
+            <textarea class="form-control" name="campground[description]" value="<%= campground.description %>" rows="5" placeholder="Message (Optional)"></textarea>
+            <div class="validate"></div>
+          </div>
+
+          <div class="btn-group">
+            <button type="button" class="btn btn-success">Select Day for your Appointment</button>
+            <button type="button" class="btn btn-danger dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <div class="dropdown-menu">
+              <button type="submit" class='dropdown-item btn btn-light btn-lg' name="campground[day]" value="Monday" >Monday</button></li>
+              <button type="submit" class='dropdown-item btn btn-light btn-lg' name="campground[day]" value="Tuesday" >Tuesday</button></li>
+              <button type="submit" class='dropdown-item btn btn-light btn-lg' name="campground[day]" value="Wednesday">Wednesday</button></li>
+              <button type="submit" class='dropdown-item btn btn-light btn-lg' name="campground[day]" value="Thursday">Thursday</button></li>
+              <button type="submit" class='dropdown-item btn btn-light btn-lg' name="campground[day]" value="Friday">Friday</button></li>
+              <button type="submit" class='dropdown-item btn btn-light btn-lg' name="campground[day]" value="Saturday">Saturday</button></li>
+            </div>
+          </div>
+
+      </form>
+      <a class="btn btn-info" href="/campgrounds">Go back</a>
+
+    </div>
+  </section>
+
+
+  <div class="container" style="margin-top: 210px;">
+<!-- For a gap maintainence -->
+  </div>
+    
+</div>
+<%- include("../partials/footer") %>

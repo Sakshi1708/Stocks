@@ -1,0 +1,13 @@
+<%- include ("../partials/header") %>
+
+<div class="container mt-5">
+    <div class="container jumbotron">
+        <h1>Edit <%= comment.name %></h1>
+    </div>
+<form action="/campgrounds/<%= campground_id %>/comments/<%= comment._id %>?_method=PUT" method="POST">
+    <input class="form-control mt-1" type="text" name="comment[text]" placeholder="Enter_text" value="<%= comment.text %>">
+    <button class="btn btn-sm btn-success mt-3">Submit</button>
+</form>
+<a href="/campgrounds/<%= campground_id %>" class="btn btn-sm btn-info">Go back</a>
+    <%- include("../partials/footer") %>
+</div>
