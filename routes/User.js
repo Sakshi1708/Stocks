@@ -5,10 +5,7 @@ var User = require("../models/user");
 var stock = require("../models/stock");
 
 router.get("/",(req,res)=>{
-    res.redirect("landingpage");
-});
-router.get("/subscription",(req,res)=>{
-
+    res.redirect("stocks/showall");
 });
 
 
