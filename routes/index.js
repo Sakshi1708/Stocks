@@ -4,7 +4,8 @@ require('dotenv').config();
 
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 var router=express.Router({mergeParams: true});
-var User=require("../models/user");
+var user=require("../models/user");
+var stock=require("../models/stock");
 
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,

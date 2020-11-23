@@ -4,6 +4,7 @@ var app=express();
 app.set("view engine","ejs");
 app.use(express.static("public"));
 
+
 var cors=require('cors');
 app.use(cors());
 
@@ -11,7 +12,6 @@ var passport=require("passport");
 var localstrategy=require("passport-local");
 var passportlocalmongoose=require("passport-local-mongoose");
 var expresssession=require("express-session");
-var User=require("./models/user");
 
 var methodoverride=require("method-override");
 app.use(methodoverride("_method"));
@@ -22,13 +22,13 @@ app.use(bodyparser.urlencoded({extended:true}));
 require('dotenv').config();
 
 var mongoose=require("mongoose");
-mongoose.connect(process.env.DB_URL, {useNewUrlParser: true});
+mongoose.connect(process.env.DB_URL, {useNewUrlParser: true,useUnifiedTopology: true});
 
 var flash = require("connect-flash");
 app.use(flash());
 
 var stock=require("./models/stock");
-var users=require("./models/user");
+var user=require("./models/user");
 
 
 

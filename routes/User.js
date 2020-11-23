@@ -1,11 +1,11 @@
 var express=require("express");
 var router=express.Router({mergeParams: true});
 var middleware = require("../middleware/index");
-var User = require("../models/user");
+var user = require("../models/user");
 var stock = require("../models/stock");
 
-router.get("/",(req,res)=>{
-    res.redirect("stocks/showall");
+router.get("/", (req,res)=>{
+    res.redirect("stocks/showall",{stock:stock});
 });
 
 
