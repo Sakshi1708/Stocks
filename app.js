@@ -4,6 +4,7 @@ var app=express();
 app.set("view engine","ejs");
 app.use(express.static("public"));
 
+const path = require('path');
 
 var cors=require('cors');
 app.use(cors());
@@ -64,6 +65,7 @@ app.use(indexroutes);
 app.use(paymentroutes);
 app.use(stockroutes);
 app.use(userroutes);
+
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 3001;
