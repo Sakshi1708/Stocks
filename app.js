@@ -27,8 +27,6 @@ mongoose.connect(process.env.DB_URL, {useNewUrlParser: true,useUnifiedTopology: 
 var flash = require("connect-flash");
 app.use(flash());
 
-var stock=require("./models/stock");
-var user=require("./models/user");
 
 
 
@@ -64,7 +62,8 @@ app.use(function(req,res,next){
 
 app.use(indexroutes); 
 app.use(paymentroutes);
-
+app.use(stockroutes);
+app.use(userroutes);
 let port = process.env.PORT;
 if (port == null || port == "") {
   port = 3001;

@@ -7,6 +7,7 @@ var router=express.Router({mergeParams: true});
 var user=require("../models/user");
 var stock=require("../models/stock");
 
+
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,

@@ -1,41 +1,19 @@
 var mongoose = require('mongoose');
-var stock = new mongoose.Schema({
-    StockName : {
-        type : String,
-        required : true,
-        unique : true
-    },
-    BuyPrice : {
-        type : Number,
-        default: 0
-    },
-    Target : {
-        type : Number,
-        default: 0
-    },
-    StopLoss : {
-        type : Number,
-        default: 0
-    },
-    freetrail:{
-        type: Boolean
-    },
-    id:{
-        type:Number,
-        required:true
-    },    
+var stockSchema = new mongoose.Schema({
+    StockName : String,
+    BuyPrice : Number,
+    Target : Number,
+    StopLoss : Number,
+    freetrail: Boolean,
+    id:Number,    
     PostDate:{
-        startdate:{type: Date},
-        enddate:{type:Date}
+        startdate:Date,
+        enddate:Date
     },
-    product:{type:String },
+    product:String ,
     //cash/futre/option
-     exchange:{
-        type:String
-    },
-    comment:{
-        type:String
-    }
+     exchange:String,
+    comment:String
 });
 
-module.exports = mongoose.model('stock',stock);
+module.exports = mongoose.model('stock',stockSchema);

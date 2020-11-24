@@ -1,42 +1,26 @@
 const mongoose = require('mongoose');
 const User = new mongoose.Schema({
-    FirstName : {
-        type : String,
-        required : true,
-        unique : true
-    },
-    LastName : {
-        type : String,
-        required : true,
-        unique:true
-    },
+    FirstName: String,
+  
+    LastName : String,
+        
+    
     PhoneNo : Number,
-    EmailId : {
-        type : String,
-        required : true,
-        unique : true
-    },
+    EmailId : String,
     Password : String,
     Subscription : {
     bought: Boolean,
-    Price : {
-        type : Number,
-        default: 0
+    Price : Number    
     },
     PostDate:{
-        startdate:{type: Date},
-        enddate:{type:Date}
-    }
+        startdate: Date,
+        enddate:Date
+    
     },
-    Admin : {
-        type : Boolean,
-        default : false
-    },
-    ft:{
-        type: Boolean,
-        default: false
-    },
-    id:{type:Number}
+    Admin : Boolean,
+    //freetrial
+    freetrial: Boolean,
+    id:Number
 });
 
 // activate subscription
