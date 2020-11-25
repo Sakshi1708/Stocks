@@ -35,10 +35,9 @@ router.get("/create",function(req,res){
 router.get("/subscription",middleware.isloggedin,(req,res)=>{
     res.render("user/subscription");
 });
-router.post("/create",function (req,res){
-
-console.log("feabdfhskfjsfjnernfkjafeaf");
-});
+// router.post("/create",function (req,res){
+//     res.render("stock/create")
+// });
 
 
 
