@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Share Wala Stock Recommendation</title>
+
+  <!-- Font Awesome -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+<!-- Google Fonts -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap">
+<!-- Bootstrap core CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+<!-- Material Design Bootstrap -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+
+</head>
+<body>
+<!--Navbar -->
+<nav class="mb-1 navbar navbar-expand-lg sticky-top navbar-dark lighten-1" style="background-color: black;">
+  <a class="navbar-brand" href="/" >Share Wala</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent-555"
+    aria-controls="navbarSupportedContent-555" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent-555">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item ">
+        <a class="nav-link" href="#"> Home
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/topachievers">Top Achievers</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/subscription">Pricing</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-555" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">Dropdown
+        </a>
+        <div class="dropdown-menu dropdown-secondary" aria-labelledby="navbarDropdownMenuLink-555">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto nav-flex-icons">
+      <li class="nav-item">
+        <a class="nav-link waves-effect waves-light">1
+          <i class="fas fa-envelope"></i>
+        </a>
+      </li>
+
+      <!-- <li class="nav-item avatar dropdown">
+        <a class="nav-link dropdown-toggle" id="navbarDropdownMenuLink-55" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          <img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-2.jpg" class="rounded-circle z-depth-0" style="height: fit-content;"
+            alt="avatar image">
+        </a>
+        <div class="dropdown-menu dropdown-menu-lg-right dropdown-secondary"
+          aria-labelledby="navbarDropdownMenuLink-55">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li> -->
+    </ul>
+  </div>
+</nav>
+<!--Navbar -->
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="darkModalForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog form-dark" role="document">
+    <!--Content-->
+    <div class="modal-content card card-image" style="background-image: url('https://mdbootstrap.com/img/Photos/Others/pricing-table%20(7).jpg');">
+      <div class="text-white rgba-stylish-strong py-5 px-5 z-depth-4">
+        <!--Header-->
+        <div class="modal-header text-center pb-4">
+          <h3 class="modal-title w-100 white-text font-weight-bold" id="myModalLabel"><strong>SIGN</strong> <a
+              class="green-text font-weight-bold"><strong> UP</strong></a></h3>
+          <button type="button" class="close white-text" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <!--Body-->
+        <div class="modal-body">
+          <!--Body-->
+          <div class="md-form mb-5">
+            <input type="email" id="Form-email5" class="form-control validate white-text">
+            <label data-error="wrong" data-success="right" for="Form-email5">Your email</label>
+          </div>
+
+          <div class="md-form pb-3">
+            <input type="password" id="Form-pass5" class="form-control validate white-text">
+            <label data-error="wrong" data-success="right" for="Form-pass5">Your password</label>
+            <div class="form-group mt-4">
+              <input class="form-check-input" type="checkbox" id="checkbox624">
+              <label for="checkbox624" class="white-text form-check-label">Accept the<a href="#" class="green-text font-weight-bold">
+                  Terms and Conditions</a></label>
+            </div>
+          </div>
+
+          <!--Grid row-->
+          <div class="row d-flex align-items-center mb-4">
+
+            <!--Grid column-->
+            <div class="text-center mb-3 col-md-12">
+              <button type="button" class="btn btn-success btn-block btn-rounded z-depth-1">Sign up</button>
+            </div>
+            <!--Grid column-->
+
+          </div>
+          <!--Grid row-->
+
+          <!--Grid row-->
+          <div class="row">
+
+            <!--Grid column-->
+            <div class="col-md-12">
+              <p class="font-small white-text d-flex justify-content-end">Have an account? <a href="#" class="green-text ml-1 font-weight-bold">
+                  Log in</a></p>
+            </div>
+            <!--Grid column-->
+
+          </div>
+          <!--Grid row-->
+
+        </div>
+      </div>
+    </div>
+    <!--/.Content-->
+  </div>
+</div>
+<!-- Modal -->
+
+<div class="text-center">
+  <a href="" class="btn btn-default btn-rounded" data-toggle="modal" data-target="#darkModalForm">Launch modal
+    register Form</a>
+</div>
+
+
+
+
+
+
+
+
+
+<!-- <div class="col-lg-4 col-md-6">
+          <div class="footer-info">
+            <h3>Day</h3>
+            <p>
+              37, Kalindi Colony, <br>
+              Phase-1, Lal Dawara<br>
+              Yamuna Nagar - 135001,<br>
+             Haryana, India<br><br>
+              <strong>Phone:</strong> +91 7015 8847 61<br>
+              <strong>Email:</strong> anoopguptaemailid@yahoo.com<br>
+            </p>
+     
+          </div>
+        </div> -->
+    <!-- Footer -->
+    <footer class="page-footer font-small stylish-color-dark pt-4">
+
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left">
+      
+          <!-- Grid row -->
+          <div class="row">
+      
+            <!-- Grid column -->
+            <div class="col-md-4 mx-auto">
+      
+              <!-- Content -->
+              <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Footer Content</h5>
+              <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
+                consectetur
+                adipisicing elit.</p>
+      
+            </div>
+            <!-- Grid column -->
+      
+            <hr class="clearfix w-100 d-md-none">
+      
+            <!-- Grid column -->
+            <div class="col-md-2 mx-auto">
+      
+              <!-- Links -->
+              <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+      
+              <ul class="list-unstyled">
+                <li>
+                  <a href="#!">Link 1</a>
+                </li>
+                <li>
+                  <a href="#!">Link 2</a>
+                </li>
+                <li>
+                  <a href="#!">Link 3</a>
+                </li>
+                <li>
+                  <a href="#!">Link 4</a>
+                </li>
+              </ul>
+      
+            </div>
+            <!-- Grid column -->
+      
+            <hr class="clearfix w-100 d-md-none">
+      
+            <!-- Grid column -->
+            <div class="col-md-2 mx-auto">
+      
+              <!-- Links -->
+              <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+      
+              <ul class="list-unstyled">
+                <li>
+                  <a href="#!">Link 1</a>
+                </li>
+                <li>
+                  <a href="#!">Link 2</a>
+                </li>
+                <li>
+                  <a href="#!">Link 3</a>
+                </li>
+                <li>
+                  <a href="#!">Link 4</a>
+                </li>
+              </ul>
+      
+            </div>
+            <!-- Grid column -->
+      
+            <hr class="clearfix w-100 d-md-none">
+      
+            <!-- Grid column -->
+            <div class="col-md-2 mx-auto">
+      
+              <!-- Links -->
+              <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+      
+              <ul class="list-unstyled">
+                <li>
+                  <a href="#!">Link 1</a>
+                </li>
+                <li>
+                  <a href="#!">Link 2</a>
+                </li>
+                <li>
+                  <a href="#!">Link 3</a>
+                </li>
+                <li>
+                  <a href="#!">Link 4</a>
+                </li>
+              </ul>
+      
+            </div>
+            <!-- Grid column -->
+      
+          </div>
+          <!-- Grid row -->
+      
+        </div>
+        <!-- Footer Links -->
+      
+      
+        <hr>
+      
+        <!-- Social buttons -->
+        <ul class="list-unstyled list-inline text-center">
+          <li class="list-inline-item">
+            <a class="btn-floating btn-fb mx-1">
+              <i class="fab fa-facebook-f"> </i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="btn-floating btn-tw mx-1">
+              <i class="fab fa-twitter"> </i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="btn-floating btn-gplus mx-1">
+              <i class="fab fa-google-plus-g"> </i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="btn-floating btn-li mx-1">
+              <i class="fab fa-linkedin-in"> </i>
+            </a>
+          </li>
+          <li class="list-inline-item">
+            <a class="btn-floating btn-dribbble mx-1">
+              <i class="fab fa-dribbble"> </i>
+            </a>
+          </li>
+        </ul>
+        <!-- Social buttons -->
+      
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3" style="background-color: black;">© 2020 Copyright:
+          <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+      
+      </footer>
+      <!-- Footer -->
+  
+    <!-- JQuery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+  
+  </body>
+  
+  </html>
+  

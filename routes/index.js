@@ -17,16 +17,17 @@ passport.use(new GoogleStrategy({
   },
   function(request,accessToken, refreshToken, profile, done) {
         console.log(profile);
+        console.log(profile._json);
         return done(null,profile);
   }
 ));
-
 passport.serializeUser(function(user,done){
     done(null,user);
 });
 passport.deserializeUser(function(user,done){
     done(null,user);
 });
+
 
 router.get("/register", function(req,res){
     res.render("auth_files/register");
@@ -42,7 +43,8 @@ router.get("/google/callback",passport.authenticate('google',
 router.get("/success",function(req,res){
 
     req.flash("success", "Welcome!!! you are successfully Logged In as " + req.user.displayName);
-    res.redirect("/info");
+    //console.log(profile._json);
+    res.redirect("/showmypage");
 })
 
 
@@ -53,3 +55,4 @@ router.get("/logout",function(req,res){
 })
 
 module.exports = router;
+
