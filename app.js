@@ -35,6 +35,7 @@ var indexroutes=require("./routes/index");
 var paymentroutes=require("./routes/payment");
 var stockroutes =require("./routes/stocks");
 var userroutes =require("./routes/User");
+var paymentroutes=require("./routes/paytmnew");
 // ////////////////////////////////////
 // payment gateway////////////////////
 /////////////////////////////////////
@@ -65,6 +66,7 @@ app.use(indexroutes);
 app.use(paymentroutes);
 app.use(stockroutes);
 app.use(userroutes);
+app.use(paymentroutes);
 
 let port = process.env.PORT;
 if (port == null || port == "") {

@@ -28,6 +28,9 @@ passport.deserializeUser(function(user,done){
     done(null,user);
 });
 
+router.get("/",function(req,res){
+    res.render("partials/home");
+})
 
 router.get("/register", function(req,res){
     res.render("auth_files/register");

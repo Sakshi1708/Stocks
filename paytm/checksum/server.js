@@ -30,7 +30,7 @@ http.createServer(function (req, res) {
 			checksum_lib.genchecksum(params, PaytmConfig.key, function (err, checksum) {
 
 				var txn_url = "https://securegw-stage.paytm.in/theia/processTransaction"; // for staging
-			// var txn_url = "https://securegw.paytm.in/theia/processTransaction"; // for production
+				// var txn_url = "https://securegw.paytm.in/theia/processTransaction"; // for production
 				
 				var form_fields = "";
 				for(var x in params){

@@ -32,9 +32,7 @@ router.get("/showmypage",function(req,res){
 router.get("/create",function(req,res){
     res.render("stocks/createstock");
 });
-router.get("/subscription",middleware.isloggedin,(req,res)=>{
-    res.render("user/subscription");
-});
+
 // router.post("/create",function (req,res){
 //     res.render("stock/create")
 // });

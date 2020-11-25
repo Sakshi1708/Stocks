@@ -3,6 +3,11 @@ var User = require("../models/user");
 
 var middleware={};
 
+//local auth
+middleware.localauth= function(req,res,next){
+}
+
+
 //login wala
 middleware.isloggedin = function(req,res,next){
     if(req.isAuthenticated()){
