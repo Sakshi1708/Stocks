@@ -7,8 +7,9 @@ var stock = require("../models/stock");
 
 router.get("/login",function(req,res){
     res.render("user/login");
-})
+});
 router.get("/admin",function(req,res){
     res.render("user/admin");
-})
+});
+
 module.exports =router;
