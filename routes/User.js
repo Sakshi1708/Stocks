@@ -8,6 +8,13 @@ router.get("/", (req,res)=>{
     res.redirect("stocks/showall",{stock:stock});
 });
 
+router.get("/subscription", (req,res)=>{
+    res.redirect("user/subscription",{user});
+});
+
+router.get("/", (req,res)=>{
+    res.redirect("stocks/showall",{stock:stock});
+});
 
 
 module.exports =router;
