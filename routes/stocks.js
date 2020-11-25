@@ -37,7 +37,7 @@ router.get("/subscription",middleware.isloggedin,(req,res)=>{
 });
 router.post("/create",function (req,res){
 
-
+console.log("feabdfhskfjsfjnernfkjafeaf");
 });
 
 
