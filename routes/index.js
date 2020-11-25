@@ -7,6 +7,7 @@ var router=express.Router({mergeParams: true});
 var user=require("../models/user");
 var stock=require("../models/stock");
 
+
 passport.use(new GoogleStrategy({
     clientID: process.env.CLIENT_ID,
     clientSecret: process.env.CLIENT_SECRET,
@@ -16,22 +17,16 @@ passport.use(new GoogleStrategy({
   },
   function(request,accessToken, refreshToken, profile, done) {
         console.log(profile);
+        console.log(profile._json);
         return done(null,profile);
   }
 ));
-
 passport.serializeUser(function(user,done){
     done(null,user);
 });
 passport.deserializeUser(function(user,done){
     done(null,user);
 });
-
-
-router.get("/",function(req,res){
-    res.render("stocks/showall");
-})
-
 
 
 router.get("/register", function(req,res){
@@ -48,7 +43,8 @@ router.get("/google/callback",passport.authenticate('google',
 router.get("/success",function(req,res){
 
     req.flash("success", "Welcome!!! you are successfully Logged In as " + req.user.displayName);
-    res.redirect("/info");
+    //console.log(profile._json);
+    res.redirect("/showmypage");
 })
 
 
@@ -59,3 +55,4 @@ router.get("/logout",function(req,res){
 })
 
 module.exports = router;
+
