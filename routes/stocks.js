@@ -5,7 +5,7 @@ var mongoose=require("mongoose");
 var user = require("../models/user");
 var stock = require("../models/stock");
 
-router.get("/showmypage",function(req,res){
+router.get("/showall",function(req,res){
 //  const newstock ={ 
 //         StockName : "arnav",
 //         BuyPrice : 58,

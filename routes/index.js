@@ -47,7 +47,10 @@ router.get("/success",function(req,res){
     req.flash("success", "Welcome!!! you are successfully Logged In as " + req.user.displayName);
     console.log("hi");
     console.log(req.user);
-    res.render("user/subscription",{user:req.user.id});
+    console.log("=======================================");
+    console.log(req.user.id);
+
+    res.render("user/subscription",{user:req.user});
 })
 
 
