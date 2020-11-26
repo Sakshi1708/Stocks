@@ -9,7 +9,10 @@ router.get("/", function(req,res){
 });
 
 router.get("/subscription", function(req,res){
-    res.render("user/subscription");
+    user.find({},function(err,founduser){
+        res.render("user/subscription",{user:user});
+    })
+    
 });
 
 router.get("/", (req,res)=>{

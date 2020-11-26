@@ -4,7 +4,7 @@ require('dotenv').config();
 var router=express.Router({mergeParams: true});
 const  checksum_lib=require("../paytm/checksum/checksum");
 
-router.get("/paynow1299", (req, res) => {
+router.get("/paynow1299/:id", (req, res) => {
     // Route for making payment
   console.log(req.body);
     var paymentDetails = {
@@ -26,10 +26,12 @@ router.get("/paynow1299", (req, res) => {
       params['WEBSITE'] = config.PaytmConfig.website;
       params['CHANNEL_ID'] = 'WEB';
       params['INDUSTRY_TYPE_ID'] = 'Retail';
-      params['ORDER_ID'] = 'TEST_'  + new Date().getTime();
-      params['CUST_ID'] = paymentDetails.customerId;
+      params['ORDER_ID']="Merchant"+ Date.now().getTime()+"@"+Math.random().toString(36).substring(2,15),
+      params['CUST_ID']=String(req.user.username)+Math.random().toString(36).substring(2,15),
+      //params['ORDER_ID'] = 'TEST_'  + new Date().getTime();
+      //params['CUST_ID'] = paymentDetails.customerId;
       params['TXN_AMOUNT'] = paymentDetails.amount;
-      params['CALLBACK_URL'] = 'http://localhost:3001/callback';
+      params['CALLBACK_URL'] = 'http://localhost:3001/callback/'+req.params.id+'/verified/'+ params['ORDER_ID']+'/value/'+params['TXN_AMOUNT'];
       params['EMAIL'] = paymentDetails.customerEmail;
       params['MOBILE_NO'] = paymentDetails.customerPhone;
   
@@ -50,11 +52,12 @@ router.get("/paynow1299", (req, res) => {
       });
   }
   });
-  router.get("/paynow2299", (req, res) => {
+
+  router.get("/paynow2299/:id", (req, res) => {
     // Route for making payment
   console.log(req.body);
     var paymentDetails = {
-      amount:"1299" ,
+      amount:"2299" ,
       customerId:"arnav",
       customerEmail:"agarwal2_be18@thapar.edu",
       customerPhone:"7777777777"  }
@@ -72,10 +75,12 @@ router.get("/paynow1299", (req, res) => {
       params['WEBSITE'] = config.PaytmConfig.website;
       params['CHANNEL_ID'] = 'WEB';
       params['INDUSTRY_TYPE_ID'] = 'Retail';
-      params['ORDER_ID'] = 'TEST_'  + new Date().getTime();
-      params['CUST_ID'] = paymentDetails.customerId;
+      params['ORDER_ID']="Merchant"+ Date.now().getTime()+"@"+Math.random().toString(36).substring(2,15),
+      params['CUST_ID']=String(req.user.username)+Math.random().toString(36).substring(2,15),
+      //params['ORDER_ID'] = 'TEST_'  + new Date().getTime();
+      //params['CUST_ID'] = paymentDetails.customerId;
       params['TXN_AMOUNT'] = paymentDetails.amount;
-      params['CALLBACK_URL'] = 'http://localhost:3001/callback';
+      params['CALLBACK_URL'] = 'http://localhost:3001/callback/'+req.params.id+'/verified/'+ params['ORDER_ID'];
       params['EMAIL'] = paymentDetails.customerEmail;
       params['MOBILE_NO'] = paymentDetails.customerPhone;
   
@@ -96,7 +101,7 @@ router.get("/paynow1299", (req, res) => {
       });
   }
   });
-  router.get("/paynow2899", (req, res) => {
+  router.get("/paynow2899/:id", (req, res) => {
     // Route for making payment
   console.log(req.body);
     var paymentDetails = {
@@ -118,14 +123,15 @@ router.get("/paynow1299", (req, res) => {
       params['WEBSITE'] = config.PaytmConfig.website;
       params['CHANNEL_ID'] = 'WEB';
       params['INDUSTRY_TYPE_ID'] = 'Retail';
-      params['ORDER_ID'] = "Merchant"+new Date().now()+"@"+Math.random().toString(36).substring(2,15);
-      params['CUST_ID'] = paymentDetails.customerId;
+      params['ORDER_ID']="Merchant"+ Date.now().getTime()+"@"+Math.random().toString(36).substring(2,15),
+      params['CUST_ID']=String(req.user.username)+Math.random().toString(36).substring(2,15),
+      //params['ORDER_ID'] = 'TEST_'  + new Date().getTime();
+      //params['CUST_ID'] = paymentDetails.customerId;
       params['TXN_AMOUNT'] = paymentDetails.amount;
-      params['CALLBACK_URL'] = 'http://localhost:3001/callback';
+      params['CALLBACK_URL'] = 'http://localhost:3001/callback/'+req.params.id+'/verified/'+ params['ORDER_ID'];
       params['EMAIL'] = paymentDetails.customerEmail;
       params['MOBILE_NO'] = paymentDetails.customerPhone;
   
-      console.log(params);
   
       checksum_lib.genchecksum(params, config.PaytmConfig.key, function (err, checksum) {
           var txn_url = "https://securegw-stage.paytm.in/theia/processTransaction"; // for staging
@@ -143,10 +149,39 @@ router.get("/paynow1299", (req, res) => {
       });
   }
   });
-  router.post("/callback", (req, res) => {
+  router.post("/callback/:id/verified/:orderid/value/:price", function(req, res){
+      
+    user.findById(req.params.id,function(err,founduser){
+        founduser.Subscription.bought=true;
+        founduser.Subscription.price=req.params.price;
+        founduser.PostDate.startdate= new Date.now();
+        founduser.PostDate.startdate=founduser.PostDate.startdate;
+        founduser.save();
+        console.log("user updated");
+    })
       req.flash("sucess","Payment sucessful");
-      res.render("user/login");
+      res.render("stocks/showall");
   });
+
+//   const User = new mongoose.Schema({
+//     FirstName: String,
+//     LastName : String,
+//     PhoneNo : Number,
+//     EmailId : String,
+//     Password : String,
+//     Subscription : {
+//     bought: Boolean,
+//     Price : Number    
+//     }, 
+//     PostDate:{
+//         startdate: Date,
+//         enddate:Date
+//     },
+//     Admin : Boolean,
+//     //freetrial
+//     freetrial: Boolean,
+//     id:Number
+// });
 
 //   router.post("/callback", (req, res) => {
 
