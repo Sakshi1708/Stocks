@@ -4,7 +4,7 @@ require('dotenv').config();
 var router=express.Router({mergeParams: true});
 const  checksum_lib=require("../paytm/checksum/checksum");
 
-router.get("/paynow1299/:id", (req, res) => {
+router.get("/paynow1299", (req, res) => {
     // Route for making payment
   console.log(req.body);
     var paymentDetails = {
@@ -26,7 +26,7 @@ router.get("/paynow1299/:id", (req, res) => {
       params['WEBSITE'] = config.PaytmConfig.website;
       params['CHANNEL_ID'] = 'WEB';
       params['INDUSTRY_TYPE_ID'] = 'Retail';
-      params['ORDER_ID']="Merchant"+ Date.now().getTime()+"@"+Math.random().toString(36).substring(2,15),
+      params['ORDER_ID']="Merchant"+ new Date+"@"+Math.random().toString(36).substring(2,15),
       params['CUST_ID']=String(req.user.username)+Math.random().toString(36).substring(2,15),
       //params['ORDER_ID'] = 'TEST_'  + new Date().getTime();
       //params['CUST_ID'] = paymentDetails.customerId;

@@ -8,7 +8,7 @@ router.get("/", function(req,res){
     res.redirect("stocks/showall",{stock:stock});
 });
 
-router.get("/subscription", function(req,res){
+router.get("/subscription",middleware.isloggedin, function(req,res){
     user.find({},function(err,founduser){
         res.render("user/subscription",{user:user});
     })

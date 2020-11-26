@@ -44,10 +44,10 @@ router.get("/google/callback",passport.authenticate('google',
 })
 
 router.get("/success",function(req,res){
-
     req.flash("success", "Welcome!!! you are successfully Logged In as " + req.user.displayName);
-    //console.log(profile._json);
-    res.redirect("/showmypage");
+    console.log("hi");
+    console.log(req.user);
+    res.render("user/subscription",{user:req.user.id});
 })
 
 
