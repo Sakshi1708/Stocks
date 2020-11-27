@@ -49,6 +49,30 @@ router.get("/success",function(req,res){
     console.log(req.user);
     console.log("=======================================");
     console.log(req.user.id);
+    // user.findById(req.user.id,function(err,founduser){
+    //     if(err){
+    //         console.log(err);
+    //     }
+    //     if(!founduser)
+    //     {
+            
+    //             const newuser =new user();
+    //             newuser.FirstName = req.user.FirstName;
+    //             newuser.LastName = req.user.LastName;
+    //             newuser.EmailId = req.user.EmailId;
+    //             newuser.PhoneNo  = -1 ;
+    //             newuser.Password= "1234";
+    //             newuser.Admin=false;
+    //             newuser.freetrial=false;
+    //             newuser.save();
+            
+    //     }
+    // })
+
+
+
+
+
 
     res.render("user/subscription",{user:req.user});
 })
