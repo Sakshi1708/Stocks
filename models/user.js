@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const User = new mongoose.Schema({
+    FullName:String,
     FirstName: String,
     LastName : String,
     PhoneNo : Number,
@@ -16,7 +17,7 @@ const User = new mongoose.Schema({
     Admin : Boolean,
     //freetrial
     freetrial: Boolean,
-    id:Number
+    id:String
 });
 
 // activate subscription

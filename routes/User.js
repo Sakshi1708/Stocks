@@ -9,10 +9,7 @@ router.get("/", function(req,res){
 });
 
 router.get("/subscription",middleware.isloggedin, function(req,res){
-    user.find({},function(err,founduser){
-        res.render("user/subscription",{user:user});
-    })
-    
+        res.render("user/subscription",{user:user});    
 });
 
 router.get("/", (req,res)=>{
@@ -35,8 +32,8 @@ router.get("/signup", function(req,res){
 //     newuser.EmailId = req.body.EmailId;
 //     newuser.PhoneNo  = "7009734327";
 //     newuser.Password= req.body.Password;
-        // newuser.Admin=false;
-        // newuser.freetrial=false;
+//         newuser.Admin=false;
+//         newuser.freetrial=false;
 // newuser.save();
 //     res.render("user/signup");
 // });

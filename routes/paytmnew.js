@@ -8,7 +8,7 @@ const { isloggedin } = require("../middleware");
 
 router.get("/paynow/:val",isloggedin, (req, res) => {
     // Route for making payment
-    console.log(req);
+    //console.log(req);
     console.log("*****************************************************")
 
   console.log(req.user);
@@ -18,7 +18,7 @@ router.get("/paynow/:val",isloggedin, (req, res) => {
   var paymentDetails = {
       amount:req.params.val,
       
-      customerId:req.user.id,
+      customerId:req.user._json.sub,
       customerEmail:req.user._json.email,
       customerPhone:"7777777777"  
     }
@@ -43,10 +43,10 @@ router.get("/paynow/:val",isloggedin, (req, res) => {
       //params['ORDER_ID'] = 'TEST_'  + new Date().getTime();
       //params['CUST_ID'] = paymentDetails.customerId;
       params['TXN_AMOUNT'] = paymentDetails.amount;
-      params['CALLBACK_URL'] = 'http://localhost:3001/callback/'+req.params.id+'/verified/'+ params['ORDER_ID']+'/value/'+params['TXN_AMOUNT'];
+      params['CALLBACK_URL'] = 'http://localhost:3001/callback/'+req.user._json.sub+'/verified/'+ params['ORDER_ID']+'/value/'+params['TXN_AMOUNT'];
       params['EMAIL'] = paymentDetails.customerEmail;
       params['MOBILE_NO'] = paymentDetails.customerPhone;
-  
+    console.log(params);
   
       checksum_lib.genchecksum(params, config.PaytmConfig.key, function (err, checksum) {
           var txn_url = "https://securegw-stage.paytm.in/theia/processTransaction"; // for staging

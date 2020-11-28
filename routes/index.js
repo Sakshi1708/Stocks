@@ -16,8 +16,8 @@ passport.use(new GoogleStrategy({
     passReqToCallback: true
   },
   function(request,accessToken, refreshToken, profile, done) {
-        console.log(profile);
-        console.log(profile._json);
+        //console.log(profile);
+        //console.log(profile._json);
         return done(null,profile);
   }
 ));
@@ -49,33 +49,42 @@ router.get("/success",function(req,res){
     console.log(req.user);
     console.log("=======================================");
     console.log(req.user.id);
-    // user.findById(req.user.id,function(err,founduser){
-    //     if(err){
-    //         console.log(err);
-    //     }
-    //     if(!founduser)
-    //     {
+    user.find({},function(err,founduser){
+        if(err){
+            console.log(err);
+        }
+        if(!founduser)
+        {
             
-    //             const newuser =new user();
-    //             newuser.FirstName = req.user.FirstName;
-    //             newuser.LastName = req.user.LastName;
-    //             newuser.EmailId = req.user.EmailId;
-    //             newuser.PhoneNo  = -1 ;
-    //             newuser.Password= "1234";
-    //             newuser.Admin=false;
-    //             newuser.freetrial=false;
-    //             newuser.save();
+                const newuser =new user();
+                newuser.FirstName = req.user._json.name;
+                newuser.LastName = req.user.LastName;
+                newuser.EmailId = req.user.EmailId;
+                newuser.PhoneNo  = -1 ;
+                newuser.Password= "1234";
+                newuser.Admin=false;
+                newuser.freetrial=false;
+                newuser.Emailid=req.user;
+                newuser.Subscription.bought=false;
+                newuser.Subscription.Price=-1;
+                newuser.id=req.user._json.sub;
+                newuser.Subscription.bought=true;
+                newuser.Subscription.price=req.params.price;
+                newuser.PostDate.startdate= new Date.now();
+                newuser.save();
+                res.render("user/subscription",{user:req.user});
             
-    //     }
-    // })
+        }
+        if(founduser)
+        {
 
 
-
-
-
-
-    res.render("user/subscription",{user:req.user});
-})
+            res.render("user/subscription",{user:req.user});
+        }
+     
+        
+    })   
+ });
 
 
 router.get("/logout",function(req,res){
@@ -85,4 +94,3 @@ router.get("/logout",function(req,res){
 })
 
 module.exports = router;
-
