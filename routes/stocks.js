@@ -4,6 +4,7 @@ var middleware = require("../middleware/index");
 var mongoose=require("mongoose");
 var user = require("../models/user");
 var stock = require("../models/stock");
+const date = require('date-and-time');
 
 router.get("/showall",function(req,res){
 //  const newstock ={ 
@@ -29,7 +30,14 @@ router.get("/showall",function(req,res){
         })
    
 });
+const now = new Date();
+
 router.get("/create",function(req,res){
+
+    const newuser= new user();
+
+
+console.log(newuser);
     res.render("stocks/createstock");
 });
 
@@ -40,3 +48,6 @@ router.get("/create",function(req,res){
 
 
 module.exports = router;
+
+
+

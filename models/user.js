@@ -10,9 +10,44 @@ const User = new mongoose.Schema({
     bought: Boolean,
     Price : Number    
     }, 
-    PostDate:{
-        startdate: Date,
-        enddate:Date
+    SubscriptionDate:{
+        startdate: {
+            time:{
+                hour:String,
+                min:String,
+                timezone:String,
+                meridian:String
+            },
+            day:String,
+            date:  Number,
+            month: Number,
+            year:  Number
+
+        },
+        enddate:{
+            time:{
+                hour:String,
+                min:String,
+                timezone:String,
+                meridian:String
+            },
+            day:String,
+            date:  Number,
+            month: Number,
+            year:  Number
+        }
+    },
+    Signup:{
+        time:{
+            hour:String,
+            min:String,
+            timezone:String,
+            meridian:String
+        },
+        day:String,
+        date:  Number,
+        month: Number,
+        year:  Number
     },
     Admin : Boolean,
     //freetrial
