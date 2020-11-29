@@ -3,10 +3,43 @@ var router=express.Router({mergeParams: true});
 var middleware = require("../middleware/index");
 var user = require("../models/user");
 var stock = require("../models/stock");
+const date = require('date-and-time');
+const now = new Date();
+const freetrialenddate = date.addDays(now, 5);
 
 router.get("/", function(req,res){
     res.redirect("stocks/showall",{stock:stock});
 });
+router.get("/admin",function(req,res){
+    res.render("user/adminportal");
+});
+router.get("/:id/tryfree",function(req,res){
+user.find({"id":req.params.id},function(err,foundone){
+    foundone.freetrial=true;
+    foundone.Subscription.Price=0;
+    foundone.Subscription.bought=true;
+    foundone.SubscriptionDate.startdate.time.hour = date.format(now, 'H');
+    foundone.SubscriptionDate.startdate.time.min = date.format(now, 'm');
+    foundone.SubscriptionDate.startdate.time.timezone =  date.format(now, '[GMT]Z');
+    foundone.SubscriptionDate.startdate.time.meridian = date.format(now, 'A');
+    foundone.SubscriptionDate.startdate.day = date.format(now, 'dddd');
+    foundone.SubscriptionDate.startdate.date = date.format(now, 'D');
+    foundone.SubscriptionDate.startdate.month = date.format(now, 'M');
+    foundone.SubscriptionDate.startdate.year = date.format(now, 'Y');
+    foundone.SubscriptionDate.enddate.time.hour = date.format(freetrialenddate, 'H');
+    foundone.SubscriptionDate.enddate.time.min = date.format(freetrialenddate, 'm');;
+    foundone.SubscriptionDate.enddate.time.timezone = date.format(freetrialenddate, '[GMT]Z');;
+    foundone.SubscriptionDate.enddate.time.meridian = date.format(freetrialenddate, 'A');;
+    foundone.SubscriptionDate.enddate.day = date.format(freetrialenddate, 'dddd');;
+    foundone.SubscriptionDate.enddate.date = date.format(freetrialenddate, 'D');;
+    foundone.SubscriptionDate.enddate.month = date.format(freetrialenddate, 'M');;
+    foundone.SubscriptionDate.enddate.year = date.format(freetrialenddate, 'Y');;
+    foundone.save();
+
+    res.render("stocks/freetrial",{user:foundone});
+})
+
+})
 
 router.get("/subscription",middleware.isloggedin, function(req,res){
         res.render("user/subscription",{user:user});    

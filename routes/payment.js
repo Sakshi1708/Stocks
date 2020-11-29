@@ -29,7 +29,7 @@ router.get("/campgrounds/:id/payment",middleware.isloggedin,function(req,res){
     params['CHANNEL_ID']='WEB',
     params['INDUSTRY_TYPE_ID']='Retail',
     params['ORDER_ID']="Merchant"+ Date.now().getTime()+"@"+Math.random().toString(36).substring(2,15),
-    params['CUST_ID']=String(req.user.username)+Math.random().toString(36).substring(2,15),
+    params['CUST_ID']=String(req.user.id)+Math.random().toString(36).substring(2,15),
     params['TXN_AMOUNT']='1',
      params['CALLBACK_URL']='http://localhost:3001/campgrounds/' + req.params.id +'/status/' + params['ORDER_ID'],
     //params['CALLBACK_URL']='https://avinashjindal2510.herokuapp.com/campgrounds/' + req.params.id +'/status/' + params['ORDER_ID'],

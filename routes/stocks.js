@@ -30,14 +30,11 @@ router.get("/showall",function(req,res){
         })
    
 });
-const now = new Date();
+
 
 router.get("/create",function(req,res){
 
-    const newuser= new user();
-
-
-console.log(newuser);
+ 
     res.render("stocks/createstock");
 });
 
