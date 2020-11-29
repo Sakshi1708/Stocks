@@ -7,8 +7,31 @@ var stockSchema = new mongoose.Schema({
     freetrail: Boolean,
     id:Number,    
     PostDate:{
-        startdate:Date,
-        enddate:Date
+        startdate: {
+            time:{
+                hour:String,
+                min:String,
+                timezone:String,
+                meridian:String
+            },
+            day:String,
+            date:  Number,
+            month: Number,
+            year:  Number
+
+        },
+        enddate:{
+            time:{
+                hour:String,
+                min:String,
+                timezone:String,
+                meridian:String
+            },
+            day:String,
+            date:  Number,
+            month: Number,
+            year:  Number
+        }
     },
     product:String ,
     //cash/futre/option

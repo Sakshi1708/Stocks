@@ -5,13 +5,22 @@ var user = require("../models/user");
 var stock = require("../models/stock");
 const date = require('date-and-time');
 const now = new Date();
+
 const freetrialenddate = date.addDays(now, 5);
+
+//free trial 5 din ka hai
+
 
 router.get("/", function(req,res){
     res.redirect("stocks/showall",{stock:stock});
 });
-router.get("/admin",function(req,res){
-    res.render("user/adminportal");
+router.get("/adminportal",function(req,res){
+    const next_month = date.addMonths(now, 1);
+    const today=now;
+    // const diff = date.subtract( next_month,today).toDays();
+    today_refactored  = date.format(today, ' MMM DD YYYY');
+    next_month_refactored =date.format(next_month, ' MMM DD YYYY');
+    res.render("user/adminportal",{today:today_refactored,next_month:next_month_refactored});
 });
 router.get("/:id/tryfree",function(req,res){
 user.find({"id":req.params.id},function(err,foundone){
