@@ -1,97 +1,96 @@
-
 <%- include("../partials/header") %>
 
 <div class="container">
   <h2 class="h1-responsive font-weight-bold text-center my-4">Add Stock Tip</h2>
   <!-- ///////////////////////////////////////////table for entring data///////////////////////// -->
   <div class="table-responsive text-nowrap">
-    <form id="contact-form" name="contact-form" action="mail.php" method="POST">
-    <table class="table">
-      <thead>
-        <tr>
-          <th scope="col">S.No.</th>
-          <th scope="col">Exchange</th>
-          <th scope="col">Stock Name</th>
-          <th scope="col">Product</th>
-          <th scope="col">Buy Price</th>
-          <th scope="col">Target</th>
-          <th scope="col">Stop Loss</th>
-          <th scope="col">Start Date</th>
-          <th scope="col">End Date</th>
-          <th scope="col">Free Trial</th>         
-          <th scope="col">Comment</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <!-- S.No. -->
-          <th scope="row">1</th>
-          <!-- Exchange -->
-          <td> 
-             <select class="browser-default custom-select" id="inputGroupSelect02">
+    <form id="form1" name="form1" action="/adminportal" method="POST">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">Exchange</th>
+            <th scope="col">Stock Name</th>
+            <th scope="col">Product</th>
+            <th scope="col">Buy Price</th>
+            <th scope="col">Target</th>
+            <th scope="col">Stop Loss</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Free Trial</th>
+            <th scope="col">Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- S.No. -->
+            <th scope="row">1</th>
+            <!-- Exchange -->
+            <td>
+              <select name="exchange" class="browser-default custom-select" id="inputGroupSelect02">
 
-                  <option selected value="NSE">NSE</option>
-                  <option value="BSE">BSE</option>
-                  <option value="MCX">MCX</option>
-             </select>
-        </td>
-        <!-- Stock Name -->
-          <td><input type="text" id="name" name="name" class="form-control"></td>
-          <!-- Product -->
-          <td>
-            <select class="browser-default custom-select" id="inputGroupSelect02">
-              <option selected>Equity</option>
-              <option value="1">Call</option>
-              <option value="2">Put</option>
-              <option value="3">Future</option>
-         </select>
-          </td>
-          <td>
-            
-            <input type="number" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-          </td>
+                <option selected value="NSE">NSE</option>
+                <option value="BSE">BSE</option>
+                <option value="MCX">MCX</option>
+              </select>
+            </td>
+            <!-- Stock Name -->
+            <td><input type="text" id="name" name="stockname" class="form-control"></td>
+            <!-- Product -->
+            <td>
+              <select name="product" class="browser-default custom-select" id="inputGroupSelect02">
+                <option selected value="Equity">Equity</option>
+                <option value="Call">Call</option>
+                <option value="Put">Put</option>
+                <option value="Future">Future</option>
+              </select>
+            </td>
+
+            <td>
+              <input name="buyprice" type="number" class="form-control"
+                aria-label="Dollar amount (with dot and two decimal places)">
+            </td>
+
+            <td>
+              <input name="target" type="number" class="form-control"
+                aria-label="Dollar amount (with dot and two decimal places)">
+            </td>
+
+            <td>
+              <input name="stoploss" type="number" class="form-control"
+                aria-label="Dollar amount (with dot and two decimal places)">
+            </td>
+            <!-- start date -->
+            <td>
+              <%= today %>
+            </td>
+            <!-- end date -->
+            <td>
+              <%= next_month %>
+            </td>
+            <td>
+              <select class="browser-default custom-select" id="inputGroupSelect02">
+                <option selected value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </td>
+
+            <td>
+              <input type="number" name="comment" class="form-control"
+                aria-label="Dollar amount (with dot and two decimal places)">
+            </td>
+            <td>
+              <button type="submit" form="form1"  class="btn btn-indigo" value="Submit">Add</button>
+            </td> 
+          </tr>
          
-          <td>
-            <input type="number" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-
-          </td>
-         
-          <td>
-            <input type="number" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-
-          </td>
-
-          <!-- start date -->
-         <td >
-          <%= today %>
-         </td>
-         <!-- end date -->
-          <td>
-            <%= next_month %>
-
-          </td>
-         
-          <td>    <select class="browser-default custom-select" id="inputGroupSelect02">
-            <option selected value="2">No</option>
-            <option value="1">Yes</option>
-            
-        
-       </select></td>
-         
-          <td>
-            <input type="number" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
-
-          </td>
-        </tr>
-      
-      </tbody>
-    </table>
-  </form>
-
+        </tbody>
+      </table>
+    </form>
+    
   </div>
 </div>
-  <!--data entering over-->  
+<!--data entering over-->
 
 
-<%- include("../partials/footer") %>  
-
+<%- include("../partials/footer") %>

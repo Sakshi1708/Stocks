@@ -16,7 +16,7 @@ router.get("/", function(req,res){
 });
 router.get("/adminportal",function(req,res){
     const next_month = date.addMonths(now, 1);
-    const today=now;
+    const today=new Date();
     // const diff = date.subtract( next_month,today).toDays();
     today_refactored  = date.format(today, ' MMM DD YYYY');
     next_month_refactored =date.format(next_month, ' MMM DD YYYY');
@@ -95,6 +95,9 @@ router.post("/signup", function(req,res){
 
 
 });
+
+
+
 
 // FirstName: String,
 // LastName : String,
