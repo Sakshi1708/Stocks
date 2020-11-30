@@ -1,5 +1,5 @@
 var stock = require("../models/stock");
-var User = require("../models/user");
+var user = require("../models/user");
 const date = require('date-and-time');
 
 var now = new Date();
@@ -24,17 +24,29 @@ middleware.isloggedin = function(req,res,next){
 
 // user subscription free trial
 middleware.issubscribed = function(req,res,next){   
-    if(req.isAuthenticated()){
-            User.find({"id":req.user.id},function(err,founduser){
+    if(req.isAuthenticated()){        
+            user.find({},function(err,allusers){
             if(err){
                 console.log(err);
                 req.flash("error", "Please buy subscription");
                 res.redirect("/subscription");
             }
+
             else{
+                var flag = 0;
+                var foundarray=[];
+                allusers.forEach(function(foundone){
+                    if(foundone.id==req.user.id){
+                        console.log("found user");
+                        foundarray.push(foundone);
+                    }
+                });
+                founduser = foundarray[0];
+                console.log(founduser);
                 var diff=date.subtract(now, founduser.SubscriptionDate.completeenddate).toDays();
                 console.log("days remaining",diff);
-                if(founduser.Subscription.bought==true && founduser.Subscription.price>0 && diff<0){
+                if(founduser.Subscription.bought==true && founduser.Subscription.Price>0 && diff<0){
+                    console.log("is subscribed= true");
                     return next();
                 }
                 else{
