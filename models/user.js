@@ -24,6 +24,7 @@ const User = new mongoose.Schema({
             year:  Number
 
         },
+        completeenddate:Date,
         enddate:{
             time:{
                 hour:String,

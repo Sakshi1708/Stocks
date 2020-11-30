@@ -70,7 +70,7 @@ router.get("/success", function (req, res) {
                         console.log("Error raised");
                         console.log(err);
                     } else {
-                        if (!founduser) {
+                        if (founduser.length==0) {
                             var newuser = new user();
                             newuser.FullName = req.user._json.name;
                             newuser.FirstName = req.user._json.given_name;
@@ -107,6 +107,8 @@ router.get("/success", function (req, res) {
                             newuser.SubscriptionDate.enddate.date = 0;
                             newuser.SubscriptionDate.enddate.month = 0;
                             newuser.SubscriptionDate.enddate.year = 0;
+                            newuser.SubscriptionDate.completeenddate = 0;
+                            
                             newuser.save();
                             console.log("condition 2");
                             res.render("user/subscription", {

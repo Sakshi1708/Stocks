@@ -11,7 +11,9 @@
   <div class="row">
     <!-- //  cuttt wala part pending -->
     <div class="row">
+  
       <% stock.forEach(function(eachstock){ %>
+        
       <div class="card-deck">
           <div class="card">
           <img src="..." class="card-img-top" alt="...">
@@ -43,32 +45,30 @@
     </thead>
     
     <tbody>
+      <% var i=1; %>
       <% stock.forEach(function(eachstock){ %>
       <tr>
-        <td></td>
+        <td>i </td>     
+        <td><%= eachstock.exchange %></td>
         <td><%= eachstock.StockName %></td>
+        <td><%= eachstock.product %></td>
         <td><%= eachstock.BuyPrice %></td>
         <td><%= eachstock.Target %></td>
-        <td><%= eachstock.product %></td>
-        <td><%= eachstock.exchange %></td>
+        <td><%= eachstock.StopLoss %></td>
         <td><%= eachstock.comment %></td>
       </tr>
-      <% }) %> 
+      <% i++;}) %> 
     </tbody>
     <tfoot>
       <tr>
-        <th>Name
-        </th>
-        <th>Position
-        </th>
-        <th>Office
-        </th>
-        <th>Age
-        </th>
-        <th>Start date
-        </th>
-        <th>Salary
-        </th>
+        <th scope="th-sm">S.No.</th>
+        <th scope="th-sm">Exchange</th>
+        <th scope="th-sm">Stock Name</th>
+        <th scope="th-sm">Product</th>
+        <th scope="th-sm">Buy Price</th>
+        <th scope="th-sm">Target</th>
+        <th scope="th-sm">Stop Loss</th>
+        <th scope="th-sm">Comment</th>
       </tr>
     </tfoot>
   </table>

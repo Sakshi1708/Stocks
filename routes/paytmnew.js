@@ -5,6 +5,8 @@ var router=express.Router({mergeParams: true});
 const  checksum_lib=require("../paytm/checksum/checksum");
 const user = require("../models/user");
 const { isloggedin } = require("../middleware");
+const date = require('date-and-time');
+var mongoose =require("mongoose");
 
 router.get("/paynow/:val",isloggedin, (req, res) => {
     // Route for making payment
@@ -43,7 +45,7 @@ router.get("/paynow/:val",isloggedin, (req, res) => {
       //params['ORDER_ID'] = 'TEST_'  + new Date().getTime();
       //params['CUST_ID'] = paymentDetails.customerId;
       params['TXN_AMOUNT'] = paymentDetails.amount;
-      params['CALLBACK_URL'] = 'http://localhost:3001/callback/'+req.user._json.sub+'/verified/'+ params['ORDER_ID']+'/value/'+params['TXN_AMOUNT'];
+      params['CALLBACK_URL'] = 'http://localhost:3001/callback/'+req.user.id+'/verified/'+ params['ORDER_ID']+'/value/'+params['TXN_AMOUNT'];
       params['EMAIL'] = paymentDetails.customerEmail;
       params['MOBILE_NO'] = paymentDetails.customerPhone;
     console.log(params);
@@ -65,20 +67,78 @@ router.get("/paynow/:val",isloggedin, (req, res) => {
   }
   });
 
+  const now=new Date();
   
   router.post("/callback/:id/verified/:orderid/value/:price", function(req, res){
-      
-    user.findById(req.params.id,function(err,founduser){
-        founduser.Subscription.bought=true;
-        founduser.Subscription.price=req.params.price;
-        founduser.PostDate.startdate= new Date.now();
-        founduser.PostDate.startdate=founduser.PostDate.startdate;
-        founduser.save();
-        console.log("user updated");
-    })
-      req.flash("sucess","Payment sucessful");
-      res.render("stocks/showall");
+    if(req.params.price==1299){
+      var sub_date = date.addMonths(now, 3);
+    }
+    else{
+      if(req.params.price==2299){
+        var sub_date = date.addMonths(now, 6);
+      }
+      else if(req.params.price==2899){
+        var sub_date = date.addYears(now, 1);
+      }
+    }
+
+      console.log(req.params.id);
+      var flag=0;
+      user.find({},function(err,allusers){ 
+      if(err){console.log(err);}
+      else{       
+        var founduser=[];
+
+        allusers.forEach(function(foundone){
+          if(foundone.id==req.params.id)
+          {   console.log("User found");
+              console.log(foundone);
+              console.log("jo user mil gya hai")
+              founduser.push(foundone);
+              flag=1;
+          }      
+        });
+        
+         
+        if(flag==1){
+        req.flash("sucess","Payment sucessful");
+        console.log(founduser);
+        foundone=founduser[0];
+        foundone.Subscription.bought=true;
+         foundone.Subscription.price=req.params.price;
+         foundone.SubscriptionDate.startdate.time.hour = date.format(now, 'H');
+         foundone.SubscriptionDate.startdate.time.min = date.format(now, 'm');
+         foundone.SubscriptionDate.startdate.time.timezone =  date.format(now, '[GMT]Z');
+         foundone.SubscriptionDate.startdate.time.meridian = date.format(now, 'A');
+         foundone.SubscriptionDate.startdate.day = date.format(now, 'dddd');
+         foundone.SubscriptionDate.startdate.date = date.format(now, 'D');
+         foundone.SubscriptionDate.startdate.month = date.format(now, 'M');
+         foundone.SubscriptionDate.startdate.year = date.format(now, 'Y');
+         foundone.SubscriptionDate.enddate.time.hour = date.format(sub_date, 'H');
+         foundone.SubscriptionDate.enddate.time.min = date.format(sub_date, 'm');;
+         foundone.SubscriptionDate.enddate.time.timezone = date.format(sub_date, '[GMT]Z');;
+         foundone.SubscriptionDate.enddate.time.meridian = date.format(sub_date, 'A');;
+         foundone.SubscriptionDate.enddate.day = date.format(sub_date, 'dddd');
+         foundone.SubscriptionDate.enddate.date = date.format(sub_date, 'D');212
+         foundone.SubscriptionDate.enddate.month = date.format(sub_date, 'M');
+         foundone.SubscriptionDate.enddate.year = date.format(sub_date, 'Y');
+         foundone.SubscriptionDate.completeenddate =sub_date ;
+ 
+         foundone.save();
+         console.log("user updated");
+
+        res.redirect("/showall");
+      }
+      else{
+        res.send("Sorry, we will refund u! Kindly email at anoopguptaemailid@yahoo.com");
+      }
+      }   
+    
+    
+    });
   });
+    
+  
 
 //   const User = new mongoose.Schema({
 //     FirstName: String,

@@ -5,8 +5,10 @@ var mongoose=require("mongoose");
 var user = require("../models/user");
 var stock = require("../models/stock");
 const date = require('date-and-time');
+ 
 
-router.get("/showall",function(req,res){
+
+router.get("/showall",middleware.issubscribed,function(req,res){
 //  const newstock ={ 
 //         StockName : "arnav",
 //         BuyPrice : 58,
@@ -46,9 +48,9 @@ router.post("/adminportal", function(req,res){
     newstock.exchange =req.body.exchange;
     newstock.product = req.body.product;
     newstock.comment = req.body.comment;
-    newstock.buyprice = req.body.buyprice;
-    newstock.target = req.body.target;
-    newstock.PostDate.startdate = 
+    newstock.BuyPrice = req.body.buyprice;
+    newstock.Target = req.body.target;
+    newstock.StopLoss = req.body.stoploss;
     newstock.PostDate.startdate.time.hour = date.format(today, 'H');
     newstock.PostDate.startdate.time.min = date.format(today, 'm');
     newstock.PostDate.startdate.time.timezone =  date.format(today, '[GMT]Z');
@@ -68,7 +70,10 @@ router.post("/adminportal", function(req,res){
    
     console.log(newstock.PostDate.startdate);
     console.log(newstock.PostDate.enddate);
-     res.redirect("/adminportal");
+    newstock.save();
+    console.log(newstock);
+    
+    res.redirect("/adminportal");
  
  
  });

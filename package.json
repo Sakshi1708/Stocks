@@ -16,6 +16,7 @@
     "body-parser": "^1.19.0",
     "config": "^3.3.2",
     "connect-flash": "^0.1.1",
+    "convert-string-to-number": "^1.0.3",
     "cookie-session": "^1.4.0",
     "cors": "^2.8.5",
     "date-and-time": "^0.14.1",
