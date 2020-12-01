@@ -1,0 +1,104 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">All Users</h1>
+    <p class="lead"></p>
+    <hr class="my-4">
+    <p>All users subscriptions dates.</p>
+    <a class="btn btn-primary btn-lg" href="#" role="button">Random button</a>
+            <!-- In cards form  -->
+    <!-- <div class="row">
+      <div class ="container">
+        <div class="row">
+          <div class ="col-6">
+            <% user.forEach(function(eachuser){ %>
+              <div class="card-deck">
+                <div class="card">
+                  <img src="https://images.pexels.com/photos/730547/pexels-photo-730547.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500" class="card-img-top" alt="...">
+                  <div class="card-body">
+                    <h5 class="card-title"> <%= eachstock.StockName %> </h5>
+
+                    <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+                  </div>
+                </div>  
+              </div>
+             <% }) %>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+
+<div class="row">
+ <div class ="container">
+  <table id="dtOrderExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th scope="th-sm">S.No.</th>
+        <th scope="th-sm">User Name</th>
+        <th scope="th-sm">Stock Name</th>
+        <th scope="th-sm">Product</th>
+        <th scope="th-sm">Buy Price</th>
+        <th scope="th-sm">Target</th>
+        <th scope="th-sm">Stop Loss</th>
+        <th scope="th-sm">Comment</th>
+        <% if(flag>0) {%>
+          <th scope="th-sm"></th>
+          <% } %>
+      </tr>
+    </thead>
+    
+    <tbody>
+      <% var i=0; %>
+      <% stock.forEach(function(eachstock){ %>
+      <tr>
+        <td><%= i+1 %> </td>     
+        <td><%= eachstock.exchange %></td>
+        <td><%= eachstock.StockName %></td>
+        <td><%= eachstock.product %></td>
+        <td><%= eachstock.BuyPrice %></td>
+        <td><%= eachstock.Target %></td>
+        <td><%= eachstock.StopLoss %></td>
+        <td><%= eachstock.comment %></td>
+        <% if(flag>0) {%>
+        <td>
+          
+          <a href ="/showall/delete/<%= eachstock._id %>" onclick = "return confirm('Are you sure to delete this record ?');"><i class="fa fa-trash fa-lg" aria-hidden ="true"></i></a>
+        </td>
+        <% } %>
+      </tr>
+      <% i++;}) %> 
+    </tbody>
+    <tfoot>
+      <tr>
+        <th scope="th-sm">S.No.</th>
+        <th scope="th-sm">Exchange</th>
+        <th scope="th-sm">Stock Name</th>
+        <th scope="th-sm">Product</th>
+        <th scope="th-sm">Buy Price</th>
+        <th scope="th-sm">Target</th>
+        <th scope="th-sm">Stop Loss</th>
+        <th scope="th-sm">Comment</th>
+        <% if(flag>0) {%>
+          <td></td>
+          <% } %>
+      </tr>
+    </tfoot>
+  </table>
+  </div>
+ </div>
+</div>
+
+</div>
+
+<script>
+  $(document).ready(function () {
+    $('#dtOrderExample').DataTable({
+    "order": [[ 3, "desc" ]]
+    });
+    $('.dataTables_length').addClass('bs-select');
+    });
+</script>
+<%- include("../partials/footer") %>  
