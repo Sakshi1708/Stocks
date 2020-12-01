@@ -111,12 +111,12 @@ router.get("/success", function (req, res) {
                             
                             newuser.save();
                             console.log("condition 2");
-                            res.render("user/subscription", {
+                            res.render("partials/home", {
                                 user: newuser
                             });
                         } else {
                             console.log("existing user found");
-                            res.render("user/subscription", {
+                            res.render("partials/home", {
                                 user: founduser
                             });
                         }

@@ -15,7 +15,7 @@ middleware.localauth= function(req,res,next){
 //login wala
 middleware.isloggedin = function(req,res,next){
     if(req.isAuthenticated()){
-        return next();
+        return next();      
     }
     req.flash("error", "Please login to proceed");
     res.redirect("/register");

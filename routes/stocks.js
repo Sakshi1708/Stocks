@@ -5,40 +5,111 @@ var mongoose=require("mongoose");
 var user = require("../models/user");
 var stock = require("../models/stock");
 const date = require('date-and-time');
- 
-
 
 router.get("/showall",middleware.issubscribed,function(req,res){
-//  const newstock ={ 
-//         StockName : "arnav",
-//         BuyPrice : 58,
-//         Target : 33,
-//         StopLoss : 25,
-//         freetrail: false,
-//         id:"25",    
-//         product:"dsnjns",
-//         //cash/futre/option
-//          exchange:"dsjnjsd",
-//         comment:"dsmk"};
-        stock.find({},function(err,found){
-            if(err){
-                console.log(err);
-            }
-            else{
+        
+            stock.find({},function(err,allstocks){
+                var flag=0;
+                var alladmin=[];
+                user.find({"id": req.user._json.sub}, function (err, founduser) {
 
+                    console.log("condition 0 found user");
+                    console.log(founduser);
+                    console.log("condition 0 finished");
+
+                    if (err) {
+                        console.log("Error raised");
+                        console.log(err);
+                    } else {
+                if(founduser[0].Admin==true){
+                    console.log("condition 0 found admin");
+                    console.log(founduser);
+                    console.log("condition 0 finished");
+                    flag=99999;
+                }
+            
                 // console.log(stockcreated);
-                res.render("stocks/showall",{stock:found});
+                res.render("stocks/showall",{stock:allstocks,flag:flag});
             }
+              })
+        
         })
-   
+    
 });
 
 
-router.get("/create",function(req,res){
 
- 
+// router.get("/showall",middleware.issubscribed,function(req,res){
+// //  const newstock ={ 
+// //         StockName : "arnav",
+// //         BuyPrice : 58,
+// //         Target : 33,
+// //         StopLoss : 25,
+// //         freetrail: false,
+// //         id:"25",    
+// //         product:"dsnjns",
+// //         //cash/futre/option
+// //          exchange:"dsjnjsd",
+// //         comment:"dsmk"};
+//         stock.find({},function(err,found){
+//             if(err){
+//                 console.log(err);
+//             }
+//             else{
+//                 const flag=0;
+//                 if(req.user.Admin==true){
+//                     flag=99999;
+//                 }
+//                 // console.log(stockcreated);
+//                 res.render("stocks/showall",{stock:found,flag:flag});
+//             }
+//         })
+   
+// });
+
+
+router.get("/create", function(req,res){
     res.render("stocks/createstock");
 });
+
+router.get('/showall/delete/:_id',function(req,res){
+    stock.findByIdAndRemove(req.params._id,function(err,doc){
+        if(err){
+            console.log(err);
+        }
+        else{
+            // console.log("success",doc);
+
+            // stock.find({},function(err,allstocks){
+            //     var flag=0;
+            //     var alladmin=[];
+            //     user.find({"id": req.user._json.sub}, function (err, founduser) {
+
+            //         console.log("condition 0 found user");
+            //         console.log(founduser);
+            //         console.log("condition 0 finished");
+
+            //         if (err) {
+            //             console.log("Error raised");
+            //             console.log(err);
+            //         } else {
+            //     if(founduser[0].Admin==true){
+            //         console.log("condition 0 found admin");
+            //         console.log(founduser);
+            //         console.log("condition 0 finished");
+            //         flag=99999;
+            //     }
+            
+                // console.log(stockcreated);
+                // res.render("stocks/showall",{stock:allstocks,flag:flag});
+                res.redirect("/showall");
+            }
+              })
+        
+        })
+//     }
+// });
+// });
 router.post("/adminportal", function(req,res){
     console.log(req.body);
     const today=new Date();
@@ -60,13 +131,13 @@ router.post("/adminportal", function(req,res){
     newstock.PostDate.startdate.month = date.format(today, 'M');
     newstock.PostDate.startdate.year = date.format(today, 'Y');
     newstock.PostDate.enddate.time.hour = date.format(next_month, 'H');
-    newstock.PostDate.enddate.time.min = date.format(next_month, 'm');;
-    newstock.PostDate.enddate.time.timezone = date.format(next_month, '[GMT]Z');;
-    newstock.PostDate.enddate.time.meridian = date.format(next_month, 'A');;
-    newstock.PostDate.enddate.day = date.format(next_month, 'dddd');;
-    newstock.PostDate.enddate.date = date.format(next_month, 'D');;
-    newstock.PostDate.enddate.month = date.format(next_month, 'M');;
-    newstock.PostDate.enddate.year = date.format(next_month, 'Y');;
+    newstock.PostDate.enddate.time.min = date.format(next_month, 'm');
+    newstock.PostDate.enddate.time.timezone = date.format(next_month, '[GMT]Z');
+    newstock.PostDate.enddate.time.meridian = date.format(next_month, 'A');
+    newstock.PostDate.enddate.day = date.format(next_month, 'dddd');
+    newstock.PostDate.enddate.date = date.format(next_month, 'D');
+    newstock.PostDate.enddate.month = date.format(next_month, 'M');
+    newstock.PostDate.enddate.year = date.format(next_month, 'Y');
    
     console.log(newstock.PostDate.startdate);
     console.log(newstock.PostDate.enddate);
@@ -84,6 +155,4 @@ router.post("/adminportal", function(req,res){
 
 
 module.exports = router;
-
-
 

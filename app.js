@@ -55,9 +55,9 @@ app.use(passport.session());
 
 
 app.use(function(req,res,next){
-    res.locals.currentuser=req.user; //req.user contains the info of currently logged in user
-    res.locals.error=req.flash("error");
-    res.locals.success=req.flash("success");
+    res.locals.currentuser = req.user; //req.user contains the info of currently logged in user
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 })
 

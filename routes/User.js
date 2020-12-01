@@ -67,6 +67,21 @@ router.get("/admin",function(req,res){
 router.get("/signup", function(req,res){
     res.render("user/signup");
 });
+router.get("/aboutus", function(req,res){
+    res.render("campgrounds/aboutus");
+});
+router.get("/home", function(req,res){
+    res.render("partials/home");
+});
+router.get("/terms", function(req,res){
+    res.render("campgrounds/terms");
+});
+router.get("/privacy", function(req,res){
+    res.render("campgrounds/privacypolicy");
+});
+router.get("/aboutus", function(req,res){
+    res.render("campgrounds/aboutus");
+});
 // router.post("/signup", function(req,res){
 //     const newuser =new user();
 //     newuser.FirstName = req.body.FirstName;

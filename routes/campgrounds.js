@@ -317,7 +317,7 @@
 // })
 
 
-// // ========================================delete
+// // ========================================  
 // router.delete("/campgrounds/:id", middleware.checkcampownership ,function(req,res){
 //     campground.findByIdAndRemove(req.params.id ,function(err){
 //         if(err){
