@@ -15,9 +15,9 @@ var mongoose = require("mongoose");
 router.get("/paynow/:val", isloggedin, (req, res) => {
   // Route for making payment
   //console.log(req);
-  console.log("*****************************************************")
-  console.log(req.user);
-  console.log("*****************************************************")
+  // console.log("*****************************************************")
+  // console.log(req.user);
+  // console.log("*****************************************************")
 
   var paymentDetails = {
     amount: req.params.val,
@@ -33,6 +33,7 @@ router.get("/paynow/:val", isloggedin, (req, res) => {
   //     customerEmail: req.body.email,
   //     customerPhone: req.body.phone
   // }
+  
   if (!paymentDetails.amount || !paymentDetails.customerId || !paymentDetails.customerEmail || !paymentDetails.customerPhone) {
     console.log(paymentDetails);
     res.status(400).send('Payment failed')
@@ -52,7 +53,7 @@ router.get("/paynow/:val", isloggedin, (req, res) => {
     params['MOBILE_NO'] = paymentDetails.customerPhone;
     console.log(params);
 
-    checksum_lib.genchecksum(params, config.PaytmConfig.key, function (err, checksum) {
+    checksum_lib.genchecksum(params, config.PaytmConfig.key, function (err, checksum) { 
       var txn_url = "https://securegw-stage.paytm.in/theia/processTransaction"; // for staging
       // var txn_url = "https://securegw.paytm.in/theia/processTransaction"; // for production
 
@@ -66,7 +67,7 @@ router.get("/paynow/:val", isloggedin, (req, res) => {
         'Content-Type': 'text/html'
       });
       res.write('<html><head><title>Merchant Checkout Page</title></head><body><center><h1>Please do not refresh this page...</h1></center><form method="post" action="' + txn_url + '" name="f1">' + form_fields + '</form><script type="text/javascript">document.f1.submit();</script></body></html>');
-      res.end();
+      // yha pr res.end() ko comment krdia hai jisse session end na ho
     });
   }
 });
@@ -74,92 +75,140 @@ router.get("/paynow/:val", isloggedin, (req, res) => {
 const now = new Date();
 
 router.post("/callback/:id/verified/:orderid/value/:price", function (req, res) {
+  var months=0;
   if (req.params.price == 1299) {
+    months=3;
     var sub_date = date.addMonths(now, 3);
   } else {
     if (req.params.price == 2299) {
+      months=6;
       var sub_date = date.addMonths(now, 6);
     } else if (req.params.price == 2899) {
+      months=12;
       var sub_date = date.addYears(now, 1);
-    }
+    }  
   }
-
   console.log(req.params.id);
   var flag = 0;
-  user.find({}, function (err, allusers) {
-    if (err) {
-      console.log(err);
-    } else {
-      var founduser = [];
-      allusers.forEach(function (foundone) {
-        if (foundone.id == req.params.id) {
-          console.log("User found");
-          console.log(foundone);
-          console.log("jo user mil gya hai")
-          founduser.push(foundone);
-          flag = 1;
+  user.findOne({id:req.params.id},function(err,foundone){
+    if(err){console.log(err);}
+    else{
+      req.flash("sucess", "Payment sucessful");
+            console.log(foundone);
+            var diff=date.subtract(now, foundone.SubscriptionDate.completeenddate).toDays();
+            console.log("DIfference now-subscription date",diff);
+            if(diff<0 ){
+              var extendeddate=date.addMonths(foundone.SubscriptionDate.completeenddate, months);
+              foundone.SubscriptionDate.enddate.time.hour = date.format(extendeddate, 'H');
+              foundone.SubscriptionDate.enddate.time.min = date.format(extendeddate, 'm');;
+              foundone.SubscriptionDate.enddate.time.timezone = date.format(extendeddate, '[GMT]Z');;
+              foundone.SubscriptionDate.enddate.time.meridian = date.format(extendeddate, 'A');;
+              foundone.SubscriptionDate.enddate.day = date.format(extendeddate, 'dddd');
+              foundone.SubscriptionDate.enddate.date = date.format(extendeddate, 'D');
+              foundone.SubscriptionDate.enddate.month = date.format(extendeddate, 'M');
+              foundone.SubscriptionDate.enddate.year = date.format(extendeddate, 'Y');
+              foundone.SubscriptionDate.completeenddate = extendeddate;
+              foundone.save();
+              res.redirect("/showall");
+            }
+            else{
+              foundone.Subscription.bought = true;
+              foundone.Subscription.Price = req.params.price;
+              foundone.SubscriptionDate.startdate.time.hour = date.format(now, 'H');
+              foundone.SubscriptionDate.startdate.time.min = date.format(now, 'm');
+              foundone.SubscriptionDate.startdate.time.timezone = date.format(now, '[GMT]Z');
+              foundone.SubscriptionDate.startdate.time.meridian = date.format(now, 'A');
+              foundone.SubscriptionDate.startdate.day = date.format(now, 'dddd');
+              foundone.SubscriptionDate.startdate.date = date.format(now, 'D');
+              foundone.SubscriptionDate.startdate.month = date.format(now, 'M');
+              foundone.SubscriptionDate.startdate.year = date.format(now, 'Y');
+              foundone.SubscriptionDate.enddate.time.hour = date.format(sub_date, 'H');
+              foundone.SubscriptionDate.enddate.time.min = date.format(sub_date, 'm');;
+              foundone.SubscriptionDate.enddate.time.timezone = date.format(sub_date, '[GMT]Z');;
+              foundone.SubscriptionDate.enddate.time.meridian = date.format(sub_date, 'A');;
+              foundone.SubscriptionDate.enddate.day = date.format(sub_date, 'dddd');
+              foundone.SubscriptionDate.enddate.date = date.format(sub_date, 'D');
+              foundone.SubscriptionDate.enddate.month = date.format(sub_date, 'M');
+              foundone.SubscriptionDate.enddate.year = date.format(sub_date, 'Y');
+              foundone.SubscriptionDate.completeenddate = sub_date;
+              foundone.save();
+              console.log("user updated");
+              console.log(foundone);
+              console.log(foundone.SubscriptionDate.enddate);
+              console.log(foundone.Subscription);
+            res.redirect("/showall");
+          }
         }
-      });
-      if (flag == 1) {
-        req.flash("sucess", "Payment sucessful");
-        console.log(founduser);
-        foundone = founduser[0];
-        foundone.Subscription.bought = true;
-        foundone.Subscription.Price = req.params.price;
-        foundone.SubscriptionDate.startdate.time.hour = date.format(now, 'H');
-        foundone.SubscriptionDate.startdate.time.min = date.format(now, 'm');
-        foundone.SubscriptionDate.startdate.time.timezone = date.format(now, '[GMT]Z');
-        foundone.SubscriptionDate.startdate.time.meridian = date.format(now, 'A');
-        foundone.SubscriptionDate.startdate.day = date.format(now, 'dddd');
-        foundone.SubscriptionDate.startdate.date = date.format(now, 'D');
-        foundone.SubscriptionDate.startdate.month = date.format(now, 'M');
-        foundone.SubscriptionDate.startdate.year = date.format(now, 'Y');
-        foundone.SubscriptionDate.enddate.time.hour = date.format(sub_date, 'H');
-        foundone.SubscriptionDate.enddate.time.min = date.format(sub_date, 'm');;
-        foundone.SubscriptionDate.enddate.time.timezone = date.format(sub_date, '[GMT]Z');;
-        foundone.SubscriptionDate.enddate.time.meridian = date.format(sub_date, 'A');;
-        foundone.SubscriptionDate.enddate.day = date.format(sub_date, 'dddd');
-        foundone.SubscriptionDate.enddate.date = date.format(sub_date, 'D');
-        foundone.SubscriptionDate.enddate.month = date.format(sub_date, 'M');
-        foundone.SubscriptionDate.enddate.year = date.format(sub_date, 'Y');
-        foundone.SubscriptionDate.completeenddate = sub_date;
-        foundone.save();
-        console.log("user updated");
-        console.log(foundone);
-        console.log(foundone.SubscriptionDate.enddate);
-        console.log(foundone.Subscription);
-
-        res.redirect("/showall");
-      } else {
-        res.send("Sorry, we will refund u! Kindly email at anoopguptaemailid@yahoo.com");
-      }
-    }
-
-
+    })
   });
-});
+  // user.find({}, function (err, allusers) {
+  //   if (err) {
+  //     console.log(err);
+  //   } else {
+  //     var founduser = [];
+  //     allusers.forEach(function (foundone) {
+  //       if (foundone.id == req.params.id) {
+  //         console.log("User found");
+  //         console.log(foundone);
+  //         console.log("jo user mil gya hai")
+  //         founduser.push(foundone);
+  //         flag = 1;
+  //       }
+  //     });
+  //     if (flag == 1) {
+  //       req.flash("sucess", "Payment sucessful");
+  //       console.log(founduser);
+  //       foundone = founduser[0];
+  //       var diff=date.subtract(now, foundone.SubscriptionDate.completeenddate).toDays();
+  //       if(diff>0 ){
+  //         var extendeddate=date.addMonths(foundone.SubscriptionDate.completeenddate, months);
+  //         foundone.SubscriptionDate.enddate.time.hour = date.format(sextendeddate, 'H');
+  //         foundone.SubscriptionDate.enddate.time.min = date.format(extendeddate, 'm');;
+  //         foundone.SubscriptionDate.enddate.time.timezone = date.format(extendeddate, '[GMT]Z');;
+  //         foundone.SubscriptionDate.enddate.time.meridian = date.format(extendeddate, 'A');;
+  //         foundone.SubscriptionDate.enddate.day = date.format(extendeddatee, 'dddd');
+  //         foundone.SubscriptionDate.enddate.date = date.format(extendeddate, 'D');
+  //         foundone.SubscriptionDate.enddate.month = date.format(extendeddate, 'M');
+  //         foundone.SubscriptionDate.enddate.year = date.format(extendeddate, 'Y');
+  //         foundone.SubscriptionDate.completeenddate = extendeddate;
+  //         foundone.save();
+  //         res.redirect("/showall");
+  //       }
+  //       else{
+  //         foundone.Subscription.bought = true;
+  //         foundone.Subscription.Price = req.params.price;
+  //         foundone.SubscriptionDate.startdate.time.hour = date.format(now, 'H');
+  //         foundone.SubscriptionDate.startdate.time.min = date.format(now, 'm');
+  //         foundone.SubscriptionDate.startdate.time.timezone = date.format(now, '[GMT]Z');
+  //         foundone.SubscriptionDate.startdate.time.meridian = date.format(now, 'A');
+  //         foundone.SubscriptionDate.startdate.day = date.format(now, 'dddd');
+  //         foundone.SubscriptionDate.startdate.date = date.format(now, 'D');
+  //         foundone.SubscriptionDate.startdate.month = date.format(now, 'M');
+  //         foundone.SubscriptionDate.startdate.year = date.format(now, 'Y');
+  //         foundone.SubscriptionDate.enddate.time.hour = date.format(sub_date, 'H');
+  //         foundone.SubscriptionDate.enddate.time.min = date.format(sub_date, 'm');;
+  //         foundone.SubscriptionDate.enddate.time.timezone = date.format(sub_date, '[GMT]Z');;
+  //         foundone.SubscriptionDate.enddate.time.meridian = date.format(sub_date, 'A');;
+  //         foundone.SubscriptionDate.enddate.day = date.format(sub_date, 'dddd');
+  //         foundone.SubscriptionDate.enddate.date = date.format(sub_date, 'D');
+  //         foundone.SubscriptionDate.enddate.month = date.format(sub_date, 'M');
+  //         foundone.SubscriptionDate.enddate.year = date.format(sub_date, 'Y');
+  //         foundone.SubscriptionDate.completeenddate = sub_date;
+  //         foundone.save();
+  //         console.log("user updated");
+  //         console.log(foundone);
+  //         console.log(foundone.SubscriptionDate.enddate);
+  //         console.log(foundone.Subscription);
+
+  //       res.redirect("/showall");}
+  //     } else {
+  //       res.send("Sorry, we will refund u! Kindly email at anoopguptaemailid@yahoo.com");
+  //     }
+  //   }
+  // });
 
 
 
-//   const User = new mongoose.Schema({
-//     FirstName: String,
-//     LastName : String,
-//     PhoneNo : Number,
-//     EmailId : String,
-//     Password : String,
-//     Subscription : {
-//     bought: Boolean,
-//     Price : Number    
-//     }, 
-//     PostDate:{
-//         startdate: Date,
-//         enddate:Date
-//     },
-//     Admin : Boolean,
-//     //freetrial
-//     freetrial: Boolean,
-//     id:Number
-// });
 
 //   router.post("/callback", (req, res) => {
 

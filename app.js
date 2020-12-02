@@ -48,7 +48,7 @@ var paymentroutes=require("./routes/paytmnew");
 app.use(expresssession({
     secret: "can be anything",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: true
 }))
 app.use(passport.initialize());
 app.use(passport.session());

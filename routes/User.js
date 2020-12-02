@@ -11,9 +11,7 @@ const freetrialenddate = date.addDays(now, 5);
 //free trial 5 din ka hai
 
 
-router.get("/", function(req,res){
-    res.redirect("stocks/showall",{stock:stock});
-});
+
 router.get("/adminportal",function(req,res){
     const next_month = date.addMonths(now, 1);
     const today=new Date();
@@ -57,7 +55,19 @@ router.get("/subscription",middleware.isloggedin, function(req,res){
 router.get("/", (req,res)=>{
     res.redirect("stocks/showall",{stock:stock});
 });
+router.get("/showallusers",function(req,res){
+    user.find({},function(err,allusers){
+        if(err){
+            console.log(err);
+        }
+        else{
 
+            // yeh page koi bhi access krlega and yha saare users available hain
+            res.render("user/showalluser",{user:allusers,flag:99999});
+        }
+    })
+
+})
 router.get("/login",function(req,res){
     res.render("user/login");
 });
