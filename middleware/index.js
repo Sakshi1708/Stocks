@@ -8,7 +8,27 @@ var middleware={};
 middleware.localauth= function(req,res,next){
 
 }
+middleware.isadmin =function(req,res,next){
+    if(req.isAuthenticated()){
+    user.findOne({id:req.user.id},function(err,foundone){
+        if(err){
+            console.log(err);
+        }else{
+            if(foundone.Admin==true)
+            {return next();}
+            else{
+                req.flash("error", "Please have a brain to become an admin");
+                res.redirect("/");
+            }
+        }
+    
 
+    });
+}else{
+    req.flash("error", "Please login to proceed");
+    res.redirect("/register");
+}
+}
 //login wala
 middleware.isloggedin = function(req,res,next){
     if(req.isAuthenticated()){

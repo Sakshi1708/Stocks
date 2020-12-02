@@ -7,7 +7,6 @@ var stock = require("../models/stock");
 const date = require('date-and-time');
 
 router.get("/showall",middleware.issubscribed,function(req,res){
-        
             stock.find({},function(err,allstocks){
                 var flag=0;
                 var alladmin=[];

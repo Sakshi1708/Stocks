@@ -1,4 +1,25 @@
 <%- include("../partials/header") %>
+<style>
+  .myInput {
+  background-image: url('/css/searchicon.png'); /* Add a search icon to input */
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  font-size: 16px; /* Increase font-size */
+  padding: 12px 20px 12px 20px; /* Add some padding */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd; /* Add a grey border */
+  
+}
+
+#myTable {
+  margin-top: 0;
+  border-collapse: collapse; /* Collapse borders */
+  width: 100%; /* Full-width */
+  border: 1px solid #ddd; /* Add a grey border */
+  font-size: 18px; /* Increase font-size */
+}
+</style>
 
 <div class="container">
   <div class="jumbotron">
@@ -28,11 +49,27 @@
         </div>
       </div>
     </div>
-
+    </div>
+    
+      <span class="row" style="border: 1px solid #ddd;">
+        <span class="col-4">
+        <label for="myInput2"><i style="font-size:24px" class="fa">&#xf002;</i></label>
+        <input id="myInput2" class="myInput" type="text" onkeyup="myFunction2()"  placeholder="Search By StockName" > 
+        </span>
+      <span class="col-4">
+        <label for="myInput2"><i style="font-size:24px" class="fa">&#xf002;</i></label>
+        <input id="myInput3" class="myInput" type="text" onkeyup="myFunction3()"  placeholder="Search by Product-Tpe"> 
+      </span>
+      <span class="col-4">
+        <label for="myInput2"><i style="font-size:24px" class="fa">&#xf002;</i></label>     
+        <input id="myInput1" class="myInput" type="text" onkeyup="myFunction1()"  placeholder="Search by Exchange"> 
+      </span>
+    </span>
+  
+      
 
 <div class="row">
- <div class ="container">
-  <table  id="myTable" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+    <table   class="table table-striped table-bordered table-sm " cellspacing="0" width="100%">
     <thead>
       <tr>
         <th scope="th-sm">S.No.</th>
@@ -49,7 +86,7 @@
       </tr>
     </thead>
     
-    <tbody>
+    <tbody id="myTable" >
       <% var i=0; %>
       <% stock.forEach(function(eachstock){ %>
       <tr>
@@ -86,10 +123,72 @@
       </tr>
     </tfoot>
   </table>
+  <script>
+    function myFunction2() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput2");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[2];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    function myFunction3() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput3");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[3];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    function myFunction1() {
+      // Declare variables
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("myInput1");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("myTable");
+      tr = table.getElementsByTagName("tr");
+    
+      // Loop through all table rows, and hide those who don't match the search query
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[1];
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+    </script>
   </div>
  </div>
 </div>
-
-</div>
-
-<%- include("../partials/footer") %>  
+<%- include("../partials/footer") %>
