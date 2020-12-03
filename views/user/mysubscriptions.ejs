@@ -1,0 +1,54 @@
+<%- include("../partials/header") %>
+
+<div class="container">
+  <div class="jumbotron">
+    <h1 class="display-4">All Users</h1>
+    <p class="lead"></p>
+    <hr class="my-4">
+    <p>All users subscriptions dates.</p>
+    <% if(sub<0){ %>
+      <a class="btn btn-primary btn-lg" href="/subscription" role="button"> Try our free Trial Right Now!</a>
+    <% } %>
+      
+    
+       
+<div class="row">
+ <div class ="container">
+  <table id="dtOrderExample" class="table table-striped table-bordered table-sm" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th scope="th-sm">Name</th>
+        <th scope="th-sm">Email Id</th>
+        <th scope="th-sm">Price Paid</th>
+        <th scope="th-sm">Subscription<br> Starting date</th>
+        <th scope="th-sm">Subscription <br>Ending date</th>
+        <th scope="th-sm">FreeTrail <br> Availed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr> 
+        <td><%= eachuser.FirstName+" "+eachuser.LastName %></td>
+        <td><%= eachuser.EmailId %></td>
+        
+        <% if(sub<0){ %>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+          <td>-</td>
+        <% }else{ %>
+          <td><%= eachuser.Subscription.Price %></td> 
+        <td><%= eachuser.SubscriptionDate.startdate.date +"/"+eachuser.SubscriptionDate.startdate.month+"/"+ eachuser.SubscriptionDate.startdate.year %></td>
+        <td><%= eachuser.SubscriptionDate.enddate.date + "/" +eachuser.SubscriptionDate.enddate.month + "/"+ eachuser.SubscriptionDate.enddate.year %></td>
+        <td><%= eachuser.freetrial %></td>
+        <% } %>
+      </tr>
+    </tbody>
+  </table>
+
+  </div>  
+ </div>
+</div>
+
+</div>
+
+<%- include("../partials/footer") %>  

@@ -135,7 +135,7 @@ router.get("/success", function (req, res) {
         router.get("/logout", function (req, res) {
             req.flash("success", "Thank you!!! you are successfully Logged Out");
             req.logOut();
-            res.redirect("/info");
+            res.redirect("/");
         });
 
         module.exports = router;

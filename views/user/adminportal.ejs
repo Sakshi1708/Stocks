@@ -1,96 +1,31 @@
 <%- include("../partials/header") %>
-
 <div class="container">
-  <h2 class="h1-responsive font-weight-bold text-center my-4">Add Stock Tip</h2>
-  <!-- ///////////////////////////////////////////table for entring data///////////////////////// -->
-  <div class="table-responsive text-nowrap">
-    <form id="form1" name="form1" action="/adminportal" method="POST">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">S.No.</th>
-            <th scope="col">Exchange</th>
-            <th scope="col">Stock Name</th>
-            <th scope="col">Product</th>
-            <th scope="col">Buy Price</th>
-            <th scope="col">Target</th>
-            <th scope="col">Stop Loss</th>
-            <th scope="col">Start Date</th>
-            <th scope="col">End Date</th>
-            <th scope="col">Free Trial</th>
-            <th scope="col">Comment</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <!-- S.No. -->
-            <th scope="row">1</th>
-            <!-- Exchange -->
-            <td>
-              <select name="exchange" class="browser-default custom-select" id="inputGroupSelect02">
+  <!-- Jumbotron -->
+<div class="jumbotron p-0">
 
-                <option selected value="NSE">NSE</option>
-                <option value="BSE">BSE</option>
-                <option value="MCX">MCX</option>
-              </select>
-            </td>
-            <!-- Stock Name -->
-            <td><input type="text" id="name" name="stockname" class="form-control"></td>
-            <!-- Product -->
-            <td>
-              <select name="product" class="browser-default custom-select" id="inputGroupSelect02">
-                <option selected value="Equity">Equity</option>
-                <option value="Call">Call</option>
-                <option value="Put">Put</option>
-                <option value="Future">Future</option>
-              </select>
-            </td>
-
-            <td>
-              <input name="buyprice" type="number" class="form-control"
-                aria-label="Dollar amount (with dot and two decimal places)">
-            </td>
-
-            <td>
-              <input name="target" type="number" class="form-control"
-                aria-label="Dollar amount (with dot and two decimal places)">
-            </td>
-
-            <td>
-              <input name="stoploss" type="number" class="form-control"
-                aria-label="Dollar amount (with dot and two decimal places)">
-            </td>
-            <!-- start date -->
-            <td>
-              <%= today %>
-            </td>
-            <!-- end date -->
-            <td>
-              <%= next_month %>
-            </td>
-            <td>
-              <select class="browser-default custom-select" id="inputGroupSelect02">
-                <option selected value="false">No</option>
-                <option value="true">Yes</option>
-              </select>
-            </td>
-
-            <td>
-              <input type="number" name="comment" class="form-control"
-                aria-label="Dollar amount (with dot and two decimal places)">
-            </td>
-            <td>
-              <button type="submit" form="form1"  class="btn btn-indigo" value="Submit">Add</button>
-            </td> 
-          </tr>
-         
-        </tbody>
-      </table>
-    </form>
-    
+  <!-- Card image -->
+  <div class="view overlay rounded-top">
+    <img src="https://mdbootstrap.com/img/Photos/Slides/img%20(134).jpg" class="img-fluid" alt="Sample image">
+    <a href="#">
+      <div class="mask rgba-white-slight"></div>
+    </a>
   </div>
+
+  <!-- Card content -->
+  <div class="card-body text-center mb-3">
+
+    <!-- Title -->
+    <h3 class="card-title h3 my-4"><strong>ADMIN Dashboard</strong></h3>
+    <!-- Text -->
+    <p class="card-text py-2">Quick Links</p>
+    <!-- Button -->
+    <a href="/admin/create" class="btn purple-gradient btn-rounded mb-4">Add Tip</a>
+    <a href="/admin/showallusers" class="btn purple-gradient btn-rounded mb-4">All Users</a>
+    <a href="/admin/showall" class="btn purple-gradient btn-rounded mb-4">Manage All Tips</a>
+    <a href="/admin/todaytop" class="btn purple-gradient btn-rounded mb-4">Manage Today's Tips</a>
+  </div>
+
 </div>
-<!--data entering over-->
-
-
+<!-- Jumbotron -->
+</div>
 <%- include("../partials/footer") %>

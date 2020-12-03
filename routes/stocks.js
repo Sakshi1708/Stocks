@@ -1,77 +1,91 @@
 var express=require("express");
 var router=express.Router({mergeParams: true});
 var middleware = require("../middleware/index");
-var mongoose=require("mongoose");
 var user = require("../models/user");
 var stock = require("../models/stock");
 const date = require('date-and-time');
+const { isloggedin } = require("../middleware/index");
+router.get("/admin/todaytop",middleware.isadmin,function(req,res){
+    stock.find({},function(err,allstocks){
+        // var flag=0;
+        // var alladmin=[];
+        // user.findOne({id: req.user._json.sub}, function (err, founduser) {
+        //     // console.log("condition 0 found user");
+        //     // console.log(founduser);
+        //     // console.log("condition 0 finished");
+        //     if (err) {
+        //         console.log("Error raised");
+        //         console.log(err);
+        //     } else {
+        // if(founduser[0].Admin==true){
+        //     console.log("condition 0 found admin");
+        //     console.log(founduser);
+        //     console.log("condition 0 finished");
+        //     flag=99999;
+        // }
+     
+        // console.log(stockcreated);
+        res.render("stocks/showall",{stock:allstocks,flag:flag});
+    })
+      });
+router.get("/todaytop",middleware.issubscribed,function(req,res){
+    stock.find({},function(err,allstocks){
+        // console.log(stockcreated);
+        res.render("stocks/showall",{stock:allstocks,flag:0});
+    });
+     });
+router.get("/admin/showall",middleware.isadmin,function(req,res){
+    stock.find({},function(err,allstocks){
+        // user.find({"id": req.user._json.sub}, function (err, founduser) {
 
+            // console.log("condition 0 found user");
+            // console.log(founduser);
+            // console.log("condition 0 finished");
+
+            // if (err) {
+            //     console.log("Error raised");
+            //     console.log(err);
+            // } else {
+        // if(founduser[0].Admin==true){
+        //     console.log("condition 0 found admin");
+        //     console.log(founduser);
+        //     console.log("condition 0 finished");
+        //     flag=99999;
+        // }
+    
+        // console.log(stockcreated);
+        res.render("stocks/showall",{stock:allstocks,flag:10});
+    })
+   })
 router.get("/showall",middleware.issubscribed,function(req,res){
             stock.find({},function(err,allstocks){
-                var flag=0;
-                var alladmin=[];
-                user.find({"id": req.user._json.sub}, function (err, founduser) {
+                // var flag=0;
+                // var alladmin=[];
+                // user.find({"id": req.user._json.sub}, function (err, founduser) {
 
-                    console.log("condition 0 found user");
-                    console.log(founduser);
-                    console.log("condition 0 finished");
+                //     // console.log("condition 0 found user");
+                //     // console.log(founduser);
+                //     // console.log("condition 0 finished");
 
-                    if (err) {
-                        console.log("Error raised");
-                        console.log(err);
-                    } else {
-                if(founduser[0].Admin==true){
-                    console.log("condition 0 found admin");
-                    console.log(founduser);
-                    console.log("condition 0 finished");
-                    flag=99999;
-                }
+                //     if (err) {
+                //         console.log("Error raised");
+                //         console.log(err);
+                //     } else {
+                // if(founduser[0].Admin==true){
+                //     console.log("condition 0 found admin");
+                //     console.log(founduser);
+                //     console.log("condition 0 finished");
+                //     flag=99999;
+                // }
             
                 // console.log(stockcreated);
-                res.render("stocks/showall",{stock:allstocks,flag:flag});
-            }
-              })
-        
-        })
-    
-});
-
-
-
-// router.get("/showall",middleware.issubscribed,function(req,res){
-// //  const newstock ={ 
-// //         StockName : "arnav",
-// //         BuyPrice : 58,
-// //         Target : 33,
-// //         StopLoss : 25,
-// //         freetrail: false,
-// //         id:"25",    
-// //         product:"dsnjns",
-// //         //cash/futre/option
-// //          exchange:"dsjnjsd",
-// //         comment:"dsmk"};
-//         stock.find({},function(err,found){
-//             if(err){
-//                 console.log(err);
-//             }
-//             else{
-//                 const flag=0;
-//                 if(req.user.Admin==true){
-//                     flag=99999;
-//                 }
-//                 // console.log(stockcreated);
-//                 res.render("stocks/showall",{stock:found,flag:flag});
-//             }
-//         })
-   
-// });
-
-
-router.get("/create", function(req,res){
+                res.render("stocks/showall",{stock:allstocks,flag:0});
+            });
+              });
+router.get("/admin/create",middleware.isadmin,function(req,res){
     res.render("stocks/createstock");
 });
-
-router.get('/showall/delete/:_id',function(req,res){
+router.get('/showall/delete/:_id',middleware.isadmin,function(req,res){
     stock.findByIdAndRemove(req.params._id,function(err,doc){
         if(err){
             console.log(err);
@@ -106,10 +120,7 @@ router.get('/showall/delete/:_id',function(req,res){
               })
         
         })
-//     }
-// });
-// });
-router.post("/adminportal", function(req,res){
+router.post("/admin/create", function(req,res){
     console.log(req.body);
     const today=new Date();
     const next_month = date.addMonths(today, 1);
@@ -143,15 +154,70 @@ router.post("/adminportal", function(req,res){
     newstock.save();
     console.log(newstock);
     
-    res.redirect("/adminportal");
+    res.redirect("/admin/create");
  
  
  });
-// router.post("/create",function (req,res){
+ module.exports = router;
+
+ // router.post("/create",function (req,res){
 //     res.render("stock/create")
 // });
 
+// router.get("/todaytop",middleware.issubscribed,function(req,res){
+//     stock.find({},function(err,allstocks){
+//         // var flag=0;
+//         // var alladmin=[];
+//         // user.findOne({id: req.user._json.sub}, function (err, founduser) {
+//         //     // console.log("condition 0 found user");
+//         //     // console.log(founduser);
+//         //     // console.log("condition 0 finished");
+//         //     if (err) {
+//         //         console.log("Error raised");
+//         //         console.log(err);
+//         //     } else {
+//         // if(founduser[0].Admin==true){
+//         //     console.log("condition 0 found admin");
+//         //     console.log(founduser);
+//         //     console.log("condition 0 finished");
+//         //     flag=99999;
+//         // }
+    
+//         // console.log(stockcreated);
+//         res.render("stocks/showall",{stock:allstocks,flag:0});
+//     });
+//      });
+// // })
+// // });
 
 
-module.exports = router;
+
+
+// router.get("/showall",middleware.issubscribed,function(req,res){
+// //  const newstock ={ 
+// //         StockName : "arnav",
+// //         BuyPrice : 58,
+// //         Target : 33,
+// //         StopLoss : 25,
+// //         freetrail: false,
+// //         id:"25",    
+// //         product:"dsnjns",
+// //         //cash/futre/option
+// //          exchange:"dsjnjsd",
+// //         comment:"dsmk"};
+//         stock.find({},function(err,found){
+//             if(err){
+//                 console.log(err);
+//             }
+//             else{
+//                 const flag=0;
+//                 if(req.user.Admin==true){
+//                     flag=99999;
+//                 }
+//                 // console.log(stockcreated);
+//                 res.render("stocks/showall",{stock:found,flag:flag});
+//             }
+//         })
+   
+// });
 

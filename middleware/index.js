@@ -21,8 +21,6 @@ middleware.isadmin =function(req,res,next){
                 res.redirect("/");
             }
         }
-    
-
     });
 }else{
     req.flash("error", "Please login to proceed");

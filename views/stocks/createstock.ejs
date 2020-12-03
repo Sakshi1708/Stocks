@@ -1,202 +1,96 @@
 <%- include("../partials/header") %>
 
-<div class = "container">
-    <!--Section: Contact v.2-->
-<div class = "container">
-    <div class ="jumbotron">
-<section class="mb-4">
+<div class="container">
+  <h2 class="h1-responsive font-weight-bold text-center my-4">Add Stock Tip</h2>
+  <!-- ///////////////////////////////////////////table for entring data///////////////////////// -->
+  <div class="table-responsive text-nowrap">
+    <form id="form1" name="form1" action="/adminportal" method="POST">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">S.No.</th>
+            <th scope="col">Exchange</th>
+            <th scope="col">Stock Name</th>
+            <th scope="col">Product</th>
+            <th scope="col">Buy Price</th>
+            <th scope="col">Target</th>
+            <th scope="col">Stop Loss</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Free Trial</th>
+            <th scope="col">Comment</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <!-- S.No. -->
+            <th scope="row">1</th>
+            <!-- Exchange -->
+            <td>
+              <select name="exchange" class="browser-default custom-select" id="inputGroupSelect02">
 
-    <!--Section heading-->
+                <option selected value="NSE">NSE</option>
+                <option value="BSE">BSE</option>
+                <option value="MCX">MCX</option>
+              </select>
+            </td>
+            <!-- Stock Name -->
+            <td><input type="text" id="name" name="stockname" class="form-control"></td>
+            <!-- Product -->
+            <td>
+              <select name="product" class="browser-default custom-select" id="inputGroupSelect02">
+                <option selected value="Equity">Equity</option>
+                <option value="Call">Call</option>
+                <option value="Put">Put</option>
+                <option value="Future">Future</option>
+              </select>
+            </td>
+
+            <td>
+              <input name="buyprice" type="number" class="form-control"
+                aria-label="Dollar amount (with dot and two decimal places)">
+            </td>
+
+            <td>
+              <input name="target" type="number" class="form-control"
+                aria-label="Dollar amount (with dot and two decimal places)">
+            </td>
+
+            <td>
+              <input name="stoploss" type="number" class="form-control"
+                aria-label="Dollar amount (with dot and two decimal places)">
+            </td>
+            <!-- start date -->
+            <td>
+              <%= today %>
+            </td>
+            <!-- end date -->
+            <td>
+              <%= next_month %>
+            </td>
+            <td>
+              <select class="browser-default custom-select" id="inputGroupSelect02">
+                <option selected value="false">No</option>
+                <option value="true">Yes</option>
+              </select>
+            </td>
+
+            <td>
+              <input type="number" name="comment" class="form-control"
+                aria-label="Dollar amount (with dot and two decimal places)">
+            </td>
+            <td>
+              <button type="submit" form="form1"  class="btn btn-indigo" value="Submit">Add</button>
+            </td> 
+          </tr>
+         
+        </tbody>
+      </table>
+    </form>
     
-    <!--Section description-->
-    <!-- <p class="text-center w-responsive mx-auto mb-5">Do you have any questions? Please do not hesitate to contact us directly. Our team will come back to you within
-        a matter of hours to help you.</p> -->
-
-    <div class="row">
-
-        <!--Grid column-->
-        <div class="col-md-12 mb-md-0 mb-5">
-            <form id="contact-form" name="contact-form" action="mail.php" method="POST">
-
-                <!--Grid row-->
-                <div class="row">
-
-                    <!--Grid column-->
-                    <div class="col-md-6">
-                        <div class="md-form mb-0">
-                            <input type="text" id="name" name="name" class="form-control">
-                            <label for="name" class="">Stock name</label>
-                        </div>
-                    </div>
-                    
-                    <!--Grid column-->
-                    <!-- <div class ="form-row"> -->
-                    <!-- <div class="col-md-3">
-                        <div class="md-form mb-0">
-                            <label for="name" class="">Product-Type</label>
-                            <input type="text" id="name" name="name" class="form-control">
-                            
-                            <datalist id="name">
-                                <option value="Cash">
-                                <option value="Future">
-                                <option value="Call">
-                                <option value="Put">
-                            </datalist>
-                        </div>
-                    </div> -->
-                    <div class="input-group mb-3 col-md-3">
-                        <select class="browser-default custom-select" id="inputGroupSelect02">
-                            <option selected>Exchange</option>
-                            <option value="1">NSE</option>
-                            <option value="2">BSE</option>
-                            <option value="3">MCX</option>
-                          </select>
-                      </div>
-                </div>
-                
-                <div class="row">
-
-                    <!--Grid column-->
-                    <div class="col-md-4">
-                        <div class="md-form mb-0">
-                            <input type="text" id="name" name="name" class="form-control">
-                            <label for="name" class="">Buying Name</label>
-                        </div>
-                    </div>
-                    <div class="input-group mb-3 col-md-3 md-form">
-                        <div class="input-group-prepend ">
-                          <span class="input-group-text">$</span>
-                          <span class="input-group-text">0.00</span>
-                        </div>
-                        <input type="number" class="form-control" aria-label="Dollar amount (with dot and two decimal places) placeholder="BuyPrice">
-                    </div>
-                    <!--Grid column-->
-                    <!-- <div class ="form-row"> -->
-                    <div class="col-md-4">
-                        <div class="md-form mb-0">
-                            <input type="text" id="name" name="name" class="form-control">
-                            <label for="name" class="">Target</label>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="md-form mb-0">
-                            <input type="text" id="name" name="name" class="form-control">
-                            <label for="name" class="">Stop-Loss</label>
-                        </div>
-                    </div>
-                </div>
-                    <!--Grid column-->
-                    <div class="row"> 
-                        <div class="col-md-4">
-                            <div class="md-form mb-0">
-                                <input type="date" id="date" name="date" class="form-control">
-                                <label for="date" class="">Start-Date</label>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <div class="md-form mb-0">
-                                <input type="date" id="date" name="date" class="form-control">
-                                <label for="date" class="">End-Date</label>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Grid column-->
-
-                <!-- </div> -->
-                <!--Grid row-->
-
-                <!--Grid row-->
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="md-form mb-0">
-                            <input type="checkbox" id="ft" name="subject" class="form-control">
-                            <label for="ft" class="">Free-Trial</label>
-                        </div>
-                    </div>
-                </div>
-                <!--Grid row-->
-
-                <!--Grid row-->
-                <div class="row">
-
-                    <!--Grid column-->
-                    <div class="col-md-12">
-
-                        <div class="md-form">
-                            <textarea type="text" id="message" name="message" rows="2" class="form-control md-textarea"></textarea>
-                            <label for="message">Comment</label>
-                        </div>
-
-                    </div>
-                </div>
-                <!--Grid row-->
-
-            </form>
-
-            <div class="text-center text-md-left">
-                <a class="btn btn-primary" onclick="document.getElementById('contact-form').submit();">Add trip</a>
-            </div>
-            <div class="status"></div>
-        </div>
-        <!--Grid column-->
-
-     
-
-    </div>
-
-</section>
+  </div>
 </div>
-</div>
-
-</div>
-
-  <%- include("../partials/footer") %>
+<!--data entering over-->
 
 
-
-<!-- const stock = require('../models/stock');
-
-var data = new stock[{
-        StockName : Hindustan Unilever,
-        BuyPrice : Rs.1200,
-        Target : Rs. 1350,
-        StopLoss : Rs.1100,
-        id :1,
-        PostDate:{
-            startdate: ,
-            enddate : ,
-        }
-        product : ,
-        exchange : ,
-        comment : ,
-    }
-    {
-        StockName : Hindustan Unilever,
-        BuyPrice : Rs.1200,
-        Target : Rs. 1350,
-        StopLoss : Rs.1100,
-        id :1,
-        PostDate:{
-            startdate: ,
-            enddate : ,
-        }
-        product : ,
-        exchange : ,
-        comment : , 
-    }
-    {
-        StockName : Hindustan Unilever,
-        BuyPrice : Rs.1200,
-        Target : Rs. 1350,
-        StopLoss : Rs.1100,
-        id :1,
-        PostDate:{
-            startdate: ,
-            enddate : ,
-        }
-        product : ,
-        exchange : ,
-        comment : ,
-    }
-    ]
-} -->
+<%- include("../partials/footer") %>
