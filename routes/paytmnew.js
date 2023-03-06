@@ -21,7 +21,6 @@ router.get("/paynow/:val", isloggedin, (req, res) => {
 
   var paymentDetails = {
     amount: req.params.val,
-
     customerId: req.user._json.sub,
     customerEmail: req.user._json.email,
     customerPhone: "7777777777"

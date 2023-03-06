@@ -1,4 +1,5 @@
 var express=require("express");
+
 var router=express.Router({mergeParams: true});
 var middleware = require("../middleware/index");
 var user = require("../models/user");
@@ -25,7 +26,7 @@ router.get("/admin/todaytop",middleware.isadmin,function(req,res){
         // }
      
         // console.log(stockcreated);
-        res.render("stocks/showall",{stock:allstocks,flag:flag});
+        res.render("stocks/showall",{stock:allstocks,flag:99999});
     })
       });
 router.get("/todaytop",middleware.issubscribed,function(req,res){
@@ -83,7 +84,7 @@ router.get("/showall",middleware.issubscribed,function(req,res){
             });
               });
 router.get("/admin/create",middleware.isadmin,function(req,res){
-    res.render("stocks/createstock");
+    res.render("stocks/createstock",{today:date.format(new Date(), ' MMM DD YYYY'),next_month:date.addMonths(new Date(), 1)});
 });
 router.get('/showall/delete/:_id',middleware.isadmin,function(req,res){
     stock.findByIdAndRemove(req.params._id,function(err,doc){

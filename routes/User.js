@@ -79,6 +79,7 @@ router.get("/home", function(req,res){
 router.get("/terms", function(req,res){
     res.render("campgrounds/terms");
 });
+
 router.get("/privacy", function(req,res){
     res.render("campgrounds/privacypolicy");
 });
@@ -104,19 +105,19 @@ module.exports =router;
 // router.get("/signup", function(req,res){
 //     res.render("user/signup");
 // });
-// router.post("/signup", function(req,res){
-//     const newuser =new user();
-//     newuser.FirstName = "";
-//     newuser.LastName = "req.body.LastName";
-//     newuser.EmailId = "req.body.EmailId";
-//     newuser.PhoneNo  = "7009734327";
-//     newuser.Password= "req.body.Password";
-//     newuser.Subscription.bought=false;
-//     newuser.Admin=true;
-//     newuser.freetrial=true;
-//     newuser.save();
-//     res.render("partials/home");
-// });
+    // router.post("/signup", function(req,res){
+    //     const newuser =new user();
+    //     newuser.FirstName = "";
+    //     newuser.LastName = "req.body.LastName";
+    //     newuser.EmailId = "req.body.EmailId";
+    //     newuser.PhoneNo  = "7009734327";
+    //     newuser.Password= "req.body.Password";
+    //     newuser.Subscription.bought=false;
+    //     newuser.Admin=true;
+    //     newuser.freetrial=true;
+    //     newuser.save();
+    //     res.render("partials/home");
+    // });
 
 // FirstName: String,
 // LastName : String,
